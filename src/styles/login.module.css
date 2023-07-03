@@ -1,0 +1,126 @@
+.Login {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  overflow-x: hidden;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-direction: row-reverse;
+}
+
+.left {
+  height: 100vh;
+  width: 50vw;
+  padding: 4rem;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.info {
+  color: var(--ascent);
+  font-size: 2.8rem;
+  font-weight: 600;
+}
+
+.input-master {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.input-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.input-container label {
+  font-size: 0.8rem;
+}
+
+.input-container input {
+  border: none;
+  border-radius: 0.7rem;
+  padding: 1rem;
+  background-color: black;
+}
+
+.input-container input:focus {
+  outline: 1px solid var(--ascent);
+  /* outline: none; */
+}
+
+.button-container {
+  padding-top: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  gap: 1rem;
+}
+
+.signup {
+  flex: 1;
+  max-width: 50%;
+  font-size: 1rem;
+  padding: 1rem 2rem;
+  border: none;
+  background-color: var(--ascent);
+  color: whitesmoke;
+  border-radius: 2rem;
+}
+
+.right {
+  height: 100vh;
+  width: 50vw;
+  padding: 3rem;
+  box-sizing: border-box;
+}
+
+.container {
+  background: linear-gradient(to bottom, #00b4d848, #00b4d825);
+  /* url("../assets/root_bg.jpg"); */
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  height: 100%;
+  padding: 1rem;
+  box-sizing: border-box;
+  background-color: var(--ascent);
+  border-radius: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.container-text {
+  background-color: rgba(0, 180, 216, 0.8);
+  padding: 1rem;
+  border-radius: 1rem;
+  text-align: center;
+  font-size: 1.3rem;
+}
+
+.logo {
+  font-family: "Bebas Neue", cursive;
+  font-size: 3.8vw;
+  transition: 0.5s;
+}
+
+.action {
+  display: flex;
+  flex-direction: column;
+}
+
+.action-button {
+  text-decoration: none;
+  color: var(--ascent);
+  font-weight: 600;
+}
+
+.Signup {
+  flex-direction: row !important;
+}
