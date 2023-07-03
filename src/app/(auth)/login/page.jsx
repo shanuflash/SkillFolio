@@ -2,8 +2,6 @@
 
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
-
 import styles from "@/styles/login.module.css";
 
 const Login = () => {
@@ -48,17 +46,10 @@ const Login = () => {
             />
           </div>
         </div>
-
         <div className={styles["button-container"]}>
           <button className={styles.signup} type="submit">
             Login
           </button>
-          {/* <div className={styles.action}>
-            Don't have an account?
-            <Link className={styles["action-button"]} href="/signup">
-              Signup
-            </Link> */}
-          {/* </div> */}
         </div>
       </form>
       <div className={styles.right} data-aos="zoom-in" data-aos-duration="600">

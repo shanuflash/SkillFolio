@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "@/styles/nav.module.css";
 import { createServerActionClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
@@ -13,7 +12,9 @@ const nav = async () => {
 
   return (
     <div className={styles.nav}>
-      <div className={styles.logo}>SkillFolio</div>
+      <Link href="/" className={styles.logo}>
+        SkillFolio
+      </Link>
       <div className={styles.user}>
         <form action={handleLogout}>
           <button className={styles.logout} type="submit">
