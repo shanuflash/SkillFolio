@@ -63,6 +63,14 @@
   font-weight: 400;
 }
 
+.content > input,
+.content > textarea {
+  resize: none;
+  height: 100%;
+  background: none;
+  border: none;
+}
+
 .contact > .item {
   font-weight: 200;
   width: 50%;
@@ -132,4 +140,17 @@
 
 .section > .item::before {
   /* content: "✦"; */
+}
+
+.float {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 100;
+  font-size: 1.25rem;
+  background-color: #11232e;
+  border: 1px solid #fff;
+  padding: 0.8rem 1.5rem;
+  border-radius: 1rem;
+  cursor: pointer;
 }
