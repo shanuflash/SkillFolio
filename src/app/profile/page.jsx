@@ -4,11 +4,22 @@ import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 
 const page = async () => {
   const supabase = createServerComponentClient({ cookies });
+  const {
+    data: {
+      session: {
+        user: { id },
+      },
+    },
+  } =
+    // = await supabase.auth.getUser();
+    await supabase.auth.getSession();
+
+  // console.log(id);
 
   const {
     data: [{ data }],
     error,
-  } = await supabase.from("student").select("data").eq("userid", "123");
+  } = await supabase.from("student").select("data").eq("userid", id);
 
   return (
     <div className={styles.profile}>

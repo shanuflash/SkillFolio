@@ -5,12 +5,10 @@ import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 const page = async ({ params }) => {
   const id = params.userid;
   const supabase = createServerComponentClient({ cookies });
-
   const { data: student, error } = await supabase
     .from("student")
     .select("data")
     .eq("userid", id);
-
   if (student.length == 0) {
     return <div>Student not found</div>;
   }
