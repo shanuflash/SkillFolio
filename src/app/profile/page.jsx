@@ -14,11 +14,8 @@ const page = async () => {
     // = await supabase.auth.getUser();
     await supabase.auth.getSession();
 
-  // console.log(id);
-
   const {
     data: [{ data }],
-    error,
   } = await supabase.from("student").select("data").eq("userid", id);
 
   return (
