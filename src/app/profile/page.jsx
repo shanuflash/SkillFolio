@@ -7,7 +7,9 @@ import { useEffect, useState } from "react";
 const page = () => {
   const supabase = createClientComponentClient();
   const [data, setData] = useState({});
+  const [id, setId] = useState(-1);
   const [edit, setEdit] = useState(false);
+
   useEffect(() => {
     handleData();
   }, []);
@@ -20,11 +22,27 @@ const page = () => {
         },
       },
     } = await supabase.auth.getSession();
-
     const {
       data: [{ data: student }],
     } = await supabase.from("student").select("data").eq("userid", id);
     setData(student);
+    setId(id);
+  };
+
+  const handleChange = (e, name) => {
+    setData((prev) => ({ ...prev, [name]: e.target.innerText }));
+  };
+
+  const handleEdit = async () => {
+    setEdit((prev) => !prev);
+    if (edit) {
+      const { error } = await supabase
+        .from("student")
+        .update({ data: data })
+        .eq("userid", id);
+      console.log(error);
+    }
+    //TODO: prevent changes if no changes
   };
 
   return (
@@ -36,14 +54,71 @@ const page = () => {
         <div className={styles.content}>
           <div className={styles.name}>
             {data?.name}{" "}
-            <span className={styles.profession}>{data?.designation}</span>
+            <span
+              className={styles.profession}
+              contentEditable={edit}
+              suppressContentEditableWarning={true}
+              dangerouslySetInnerHTML={{
+                __html: data?.designation || "edit this",
+              }}
+              onBlur={(e) => handleChange(e, "designation")}
+            />
           </div>
-          <textarea value={data?.description} className={styles.description} />
+          <div
+            className={styles.description}
+            contentEditable={edit}
+            suppressContentEditableWarning={true}
+            dangerouslySetInnerHTML={{
+              __html: data?.description || "edit this",
+            }}
+            onBlur={(e) => handleChange(e, "description")}
+          />
+
           <div className={styles.contact}>
-            <div className={styles.item}>Address: {data?.address}</div>
-            <div className={styles.item}>Phone: {data?.phone}</div>
-            <div className={styles.item}>Email: {data?.email}</div>
-            <div className={styles.item}>Date of Birth: {data?.dob}</div>
+            <div className={styles.item}>
+              Address:{" "}
+              <span
+                contentEditable={edit}
+                suppressContentEditableWarning={true}
+                dangerouslySetInnerHTML={{
+                  __html: data?.address || "edit this",
+                }}
+                onBlur={(e) => handleChange(e, "address")}
+              />
+            </div>
+            <div className={styles.item}>
+              Phone:{" "}
+              <span
+                contentEditable={edit}
+                suppressContentEditableWarning={true}
+                dangerouslySetInnerHTML={{
+                  __html: data?.phone || "edit this",
+                }}
+                onBlur={(e) => handleChange(e, "phone")}
+              />
+            </div>
+            <div className={styles.item}>
+              Email:{" "}
+              <span
+                contentEditable={edit}
+                suppressContentEditableWarning={true}
+                dangerouslySetInnerHTML={{
+                  __html: data?.email || "edit this",
+                }}
+                onBlur={(e) => handleChange(e, "email")}
+              />
+            </div>
+            <div className={styles.item}>
+              Date of Birth:{" "}
+              <span
+                contentEditable={edit}
+                suppressContentEditableWarning={true}
+                dangerouslySetInnerHTML={{
+                  __html: data?.dob || "edit this",
+                }}
+                onBlur={(e) => handleChange(e, "dob")}
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -129,8 +204,8 @@ const page = () => {
           </div>
         </div>
       </div>
-      <button onClick={() => setEdit((prev) => !prev)} className={styles.float}>
-        Edit
+      <button onClick={() => handleEdit()} className={styles.float}>
+        {edit ? "Save" : "Edit"}
       </button>
     </div>
   );

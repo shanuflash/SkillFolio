@@ -1,6 +1,7 @@
 import styles from "./page.module.css";
 import { cookies } from "next/headers";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import Link from "next/link";
 
 const Home = async () => {
   const supabase = createServerComponentClient({ cookies });
@@ -9,12 +10,14 @@ const Home = async () => {
     <div className={styles.main}>
       {data.map((student) => {
         return (
-          <div className={styles.card}>
-            <img src={student.img} alt="" />
-            <div className={styles.content}>
-              <div className={styles.title}>{student.data.name}</div>
+          <Link href={"profile/" + student.userid}>
+            <div className={styles.card}>
+              <img src={student.img} alt="" />
+              <div className={styles.content}>
+                <div className={styles.title}>{student.data.name}</div>
+              </div>
             </div>
-          </div>
+          </Link>
         );
       })}
     </div>
