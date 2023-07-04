@@ -16,6 +16,9 @@ const page = async ({ params }) => {
 
   return (
     <div className={styles.profile}>
+      <div className={styles.disclaimer}>
+        Still Work in Progress. Go to your profile page to edit your profile.
+      </div>
       <div className={styles.head}>
         <div className={styles.photo}>
           <img src="/212220220044.jpg" alt="profile picture" />
@@ -105,9 +108,10 @@ const page = async ({ params }) => {
               </div>
             ))}
           </div>
+          {}
           <div className={`${styles.section} ${styles.experience}`}>
             <div className={styles.title}>Experience</div>
-            {data?.projects.map((item) => (
+            {data?.experience.map((item) => (
               <div className={styles.item}>
                 <div className={styles.name}>{item.name}</div>
                 <div className={styles.description}>{item.description}</div>

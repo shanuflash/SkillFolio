@@ -4,6 +4,9 @@ import styles from "@/styles/profile.module.css";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useEffect, useState } from "react";
 
+//TODO: add check xss
+//TODO: add check for empty fields
+//TODO: add skills, certification(certificate ID)/achievements, language
 const page = () => {
   const supabase = createClientComponentClient();
   const [data, setData] = useState({});
@@ -62,6 +65,9 @@ const page = () => {
 
   return (
     <div className={styles.profile}>
+      <div className={styles.disclaimer}>
+        Use the edit button to edit your profile. Don't forget to save!
+      </div>
       <div className={styles.head}>
         <div className={styles.photo}>
           <img src="/212220220044.jpg" alt="profile picture" />
