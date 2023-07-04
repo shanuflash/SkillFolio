@@ -1,5 +1,4 @@
 .Login {
-  height: 100vh;
   width: 100vw;
   display: flex;
   overflow-x: hidden;
@@ -9,14 +8,13 @@
 }
 
 .left {
-  height: 100vh;
   width: 50vw;
   padding: 4rem;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 0.5rem;
+  gap: 2rem;
 }
 
 .info {

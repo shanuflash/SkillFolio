@@ -3,28 +3,29 @@
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useRouter } from "next/navigation";
 import styles from "@/styles/login.module.css";
+import { useState } from "react";
 
 const Login = () => {
   const router = useRouter();
-  const handleSignin = async (formData) => {
-    const supabase = createClientComponentClient();
-    const email = formData.get("email");
-    const password = formData.get("password");
+  const supabase = createClientComponentClient();
+  const [user, setUser] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSignin = async (e) => {
+    e.preventDefault();
     const { data, error } = await supabase.auth.signInWithPassword({
-      email: email,
+      email: user,
       password: password,
     });
-    if (!error) {
-      router.push("/");
-    }
+    if (error) console.log(error);
+    else router.push("/");
   };
 
   return (
     <div className={styles.Login}>
-      <form className={styles.left} data-aos="fade-right" action={handleSignin}>
+      <form className={styles.left} onSubmit={handleSignin}>
         <div className={styles.info}>
-          <span style={{ fontWeight: "800" }}>Login</span> or Sign up to
-          continue...
+          <span style={{ fontWeight: "800" }}>Login</span> to continue...
         </div>
         <div className={styles["input-master"]}>
           <div className={styles["input-container"]}>
@@ -33,6 +34,8 @@ const Login = () => {
               name="email"
               type="email"
               className={`${styles.input} ${styles["input-misc"]}`}
+              onChange={(e) => setUser(e.target.value)}
+              required
               placeholder="Enter email"
             />
           </div>
@@ -43,6 +46,8 @@ const Login = () => {
               type="password"
               className={`${styles.input} ${styles["input-misc"]}`}
               placeholder="Enter password"
+              onChange={(e) => setPassword(e.target.value)}
+              required
             />
           </div>
         </div>
@@ -52,15 +57,6 @@ const Login = () => {
           </button>
         </div>
       </form>
-      <div className={styles.right} data-aos="zoom-in" data-aos-duration="600">
-        <div className={styles.container}>
-          <div className={styles.logo}>ShowStopper</div>
-          <div className={styles["container-text"]}>
-            Unlimited movies, TV shows and more. <br />
-            Watch anywhere. Cancel anytime.
-          </div>
-        </div>
-      </div>
     </div>
   );
 };
