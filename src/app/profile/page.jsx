@@ -186,6 +186,9 @@ const page = () => {
           </div>
           <div className={styles.section}>
             <div className={styles.title}>Education</div>
+            {data?.education?.length == 0 && (
+              <>No education found! edit profile to add.</>
+            )}
             {data?.education?.map((item, index) => (
               <div className={styles.item} key={index}>
                 <span
@@ -218,12 +221,17 @@ const page = () => {
                   ],
                 }))
               }
+              hidden={!edit}
             >
               Add Education
             </button>
           </div>
           <div className={styles.section}>
             <div className={styles.title}>Skills</div>
+            <input type="text" value="Work in Progress" />
+            {data?.skills?.length == 0 && (
+              <>No skills found! edit profile to add.</>
+            )}
             {data?.skills?.map((item) => (
               <div className={styles["skill-item-card"]}>{item}</div>
             ))}
@@ -232,26 +240,108 @@ const page = () => {
         <div className={styles.right}>
           <div className={`${styles.section} ${styles.projects}`}>
             <div className={styles.title}>Projects</div>
-            {data?.projects?.map((item) => (
+            {data?.projects?.length == 0 && (
+              <>No projetcs found! edit profile to add.</>
+            )}
+            {data?.projects?.map((item, index) => (
               <div className={styles.item}>
-                <div className={styles.name}>{item.name}</div>
-                <div className={styles.description}>{item.description}</div>
-                <div className={styles.link}>
-                  <a href={item?.link} target="_blank">
-                    {item?.link}
-                  </a>
-                </div>
+                <span
+                  className={styles.name}
+                  contentEditable={edit}
+                  dangerouslySetInnerHTML={{
+                    __html: item.name || "projects name",
+                  }}
+                  onBlur={(e) =>
+                    handleChangeObjIndex(e, "projects.name", index)
+                  }
+                />
+                <span
+                  className={styles.description}
+                  contentEditable={edit}
+                  dangerouslySetInnerHTML={{
+                    __html: item.description || "project description",
+                  }}
+                  onBlur={(e) =>
+                    handleChangeObjIndex(e, "projects.description", index)
+                  }
+                />
+                <span
+                  className={styles.link}
+                  contentEditable={edit}
+                  dangerouslySetInnerHTML={{
+                    __html: item.link || "project link",
+                  }}
+                  onBlur={(e) =>
+                    handleChangeObjIndex(e, "projects.link", index)
+                  }
+                />
+                {/* <a href={item?.link} target="_blank">
+                  {item?.link}
+                </a> */}
               </div>
             ))}
+            <button
+              hidden={!edit}
+              onClick={() =>
+                setData((prev) => ({
+                  ...prev,
+                  projects: [
+                    ...prev.projects,
+                    {
+                      name: "projects name",
+                      description: "project description",
+                      link: "project link",
+                    },
+                  ],
+                }))
+              }
+            >
+              Add Project
+            </button>
           </div>
           <div className={`${styles.section} ${styles.experience}`}>
             <div className={styles.title}>Experience</div>
+            {data?.experience?.length == 0 && (
+              <>No experiences found! edit profile to add.</>
+            )}
             {data?.experience?.map((item) => (
               <div className={styles.item}>
-                <div className={styles.name}>{item.name}</div>
-                <div className={styles.description}>{item.description}</div>
+                <span
+                  className={styles.name}
+                  contentEditable={edit}
+                  dangerouslySetInnerHTML={{
+                    __html: item.name || "experience name",
+                  }}
+                  onBlur={(e) =>
+                    handleChangeObjIndex(e, "experience.name", index)
+                  }
+                />
+                <span
+                  className={styles.description}
+                  contentEditable={edit}
+                  dangerouslySetInnerHTML={{
+                    __html: item.description || "description",
+                  }}
+                  onBlur={(e) =>
+                    handleChangeObjIndex(e, "experience.description", index)
+                  }
+                />
               </div>
             ))}
+            <button
+              hidden={!edit}
+              onClick={() =>
+                setData((prev) => ({
+                  ...prev,
+                  experience: [
+                    ...prev.experience,
+                    { name: "experience name", description: "description" },
+                  ],
+                }))
+              }
+            >
+              Add Experience
+            </button>
           </div>
         </div>
       </div>
