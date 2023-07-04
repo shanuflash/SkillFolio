@@ -139,9 +139,9 @@
   gap: 0.5rem;
 }
 
-.section > .item::before {
-  /* content: "✦"; */
-}
+/* .section > .item::before {
+ todo:todo
+} */
 
 .float {
   position: fixed;

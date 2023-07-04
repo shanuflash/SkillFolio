@@ -34,10 +34,10 @@ const page = () => {
   };
 
   const handleChangeObj = (e, name) => {
-    const key = name.split(".");
+    const key = name.split("."); //socials linkedin
     setData((prev) => ({
       ...prev,
-      [key[0]]: { [key[1]]: e.target.innerText },
+      [key[0]]: { ...prev[key[0]], [key[1]]: e.target.innerText },
     }));
   };
 
