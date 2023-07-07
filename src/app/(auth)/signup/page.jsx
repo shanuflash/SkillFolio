@@ -1,34 +1,69 @@
-"use client";
-
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { useRouter } from "next/navigation";
-import Link from "next/link";
-
+import { createServerActionClient } from "@supabase/auth-helpers-nextjs";
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 import styles from "@/styles/login.module.css";
 
-const Signup = () => {
-  const router = useRouter();
-  const handleSignin = async (formData) => {
-    const supabase = createClientComponentClient();
+const Login = async () => {
+  const handleSignup = async (formData) => {
+    "use server";
+    const supabase = createServerActionClient({ cookies });
+    const name = formData.get("name");
     const email = formData.get("email");
     const password = formData.get("password");
-    const { error } = await supabase.auth.signInWithPassword({
+    console.log(name, email, password);
+    const { data, error } = await supabase.auth.signUp({
       email: email,
       password: password,
+      options: {
+        data: {
+          first_name: name,
+        },
+      },
     });
+    console.log(data, error);
     if (!error) {
-      router.push("/");
+      const { error } = await supabase.from("student").insert({
+        userid: data.user.id,
+        data: {
+          name: "",
+          designation: "",
+          description: "",
+          address: "",
+          phone: "",
+          email: "",
+          dob: "",
+          socials: {
+            linkedin: "",
+            github: "",
+          },
+          education: [],
+          skills: [],
+          experience: [],
+          projects: [],
+          photo: `https://jvnstfpaokvohgpmuewa.supabase.co/storage/v1/object/public/images/${data.user.id}.png`,
+        },
+      });
+      console.log(error);
+      redirect("/");
     }
   };
 
   return (
-    <div className={`${styles.Login} ${styles.Signup}`}>
-      <form className={styles.left} data-aos="fade-right" action={handleSignin}>
+    <div className={styles.Login}>
+      <form className={styles.left} action={handleSignup}>
         <div className={styles.info}>
-          <span style={{ fontWeight: "800" }}>Login</span> or Sign up to
-          continue...
+          <span style={{ fontWeight: "800" }}>Sign Up </span> to continue...
         </div>
         <div className={styles["input-master"]}>
+          <div className={styles["input-container"]}>
+            <label htmlFor="name">Name</label>
+            <input
+              name="name"
+              type="name"
+              className={`${styles.input} ${styles["input-misc"]}`}
+              placeholder="Enter name"
+            />
+          </div>
           <div className={styles["input-container"]}>
             <label htmlFor="email">Email</label>
             <input
@@ -48,30 +83,14 @@ const Signup = () => {
             />
           </div>
         </div>
-
         <div className={styles["button-container"]}>
           <button className={styles.signup} type="submit">
             Login
           </button>
-          <div className={styles.action}>
-            Already have an account?
-            <Link className={styles["action-button"]} href="/login">
-              Sign in
-            </Link>
-          </div>
         </div>
       </form>
-      <div className={styles.right} data-aos="zoom-in" data-aos-duration="600">
-        <div className={styles.container}>
-          <div className={styles.logo}>ShowStopper</div>
-          <div className={styles["container-text"]}>
-            Unlimited movies, TV shows and more. <br />
-            Watch anywhere. Cancel anytime.
-          </div>
-        </div>
-      </div>
     </div>
   );
 };
 
-export default Signup;
+export default Login;

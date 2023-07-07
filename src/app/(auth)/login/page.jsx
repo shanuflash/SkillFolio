@@ -14,6 +14,27 @@ const Login = async () => {
       password: password,
     });
     if (!error) {
+      await supabase.from("student").insert({
+        userid: data.user.id,
+        data: {
+          name: "",
+          designation: "",
+          description: "",
+          address: "",
+          phone: "",
+          email: "",
+          dob: "",
+          socials: {
+            linkedin: "",
+            github: "",
+          },
+          education: [],
+          skills: [],
+          experience: [],
+          projects: [],
+          photo: `https://jvnstfpaokvohgpmuewa.supabase.co/storage/v1/object/public/images/${data.user.id}.png`,
+        },
+      });
       redirect("/");
     }
   };
