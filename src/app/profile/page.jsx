@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 const page = () => {
   const supabase = createClientComponentClient();
   const [data, setData] = useState({});
+  const [originalData, setOriginalData] = useState({});
   const [id, setId] = useState(-1);
   const [edit, setEdit] = useState(false);
 
@@ -29,6 +30,7 @@ const page = () => {
       data: [{ data: student }],
     } = await supabase.from("student").select("data").eq("userid", id);
     setData(student);
+    setOriginalData(student);
     setId(id);
   };
 
@@ -53,15 +55,25 @@ const page = () => {
 
   const handleEdit = async () => {
     setEdit((prev) => !prev);
-    if (edit) {
+    if (edit && JSON.stringify(data) !== JSON.stringify(originalData)) {
       const { error } = await supabase
         .from("student")
         .update({ data: data })
         .eq("userid", id);
       console.log(error);
     }
-    //TODO: prevent changes if no changes
   };
+
+  // const handleEdit = async () => {
+  //   setEdit((prev) => !prev);
+  //   if (edit) {
+  //     const { error } = await supabase
+  //       .from("student")
+  //       .update({ data: data })
+  //       .eq("userid", id);
+  //     console.log(error);
+  //   }
+  // };
 
   return (
     <div className={styles.profile}>
@@ -162,7 +174,7 @@ const page = () => {
               target="_blank"
               href={
                 edit
-                  ? ""
+                  ? null
                   : "https://www.linkedin.com/in/" + data?.socials?.linkedin
               }
               className={styles.item}
@@ -188,7 +200,7 @@ const page = () => {
               target="_blank"
               href={
                 edit
-                  ? ""
+                  ? null
                   : "https://www.linkedin.com/in/" + data?.socials?.github
               }
               className={styles.item}
@@ -255,7 +267,7 @@ const page = () => {
           </div>
           <div className={styles.section}>
             <div className={styles.title}>Skills</div>
-            <input type="text" value="Work in Progress" />
+            <input type="text" />
             {data?.skills?.length == 0 && (
               <>No skills found! edit profile to add.</>
             )}
