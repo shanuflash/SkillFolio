@@ -125,6 +125,7 @@
 }
 
 .section > .title {
+  text-transform: capitalize;
   width: 100%;
   font-size: 1.8rem;
   font-weight: bold;
@@ -162,6 +163,14 @@
  todo:todo
 } */
 
+.delete {
+  align-self: flex-end;
+}
+
+.empty {
+  width: 100%;
+}
+
 .float {
   position: fixed;
   bottom: 2rem;
@@ -180,4 +189,34 @@
   padding: 0 0.4rem;
   border-radius: 0.3rem;
   background-color: #11232e;
+}
+
+.loading {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+}
+
+.spinner {
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  border-top-color: #fff;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  animation: spin 1s linear infinite;
+  margin-bottom: 16px;
+}
+
+.text {
+  font-size: 24px;
+  font-weight: bold;
+  color: #fff;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }

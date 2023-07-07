@@ -1,14 +1,16 @@
 "use client";
 import styles from "@/styles/profile.module.css";
-
+import Section from "@/components/profile/section";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useEffect, useState } from "react";
-import _, { set } from "lodash";
+import _ from "lodash";
 
 //TODO: add check xss
 //TODO: add skills, certification(certificate ID)/achievements, language
+
 const page = () => {
   const supabase = createClientComponentClient();
+  const [loading, setLoading] = useState(true);
   const [data, setData] = useState({});
   const [originalData, setOriginalData] = useState({});
   const [id, setId] = useState(-1);
@@ -45,8 +47,10 @@ const page = () => {
       data: [{ data: student }],
     } = await supabase.from("student").select("data").eq("userid", id);
 
-    setData(JSON.parse(JSON.stringify(student)));
+    setData(student);
     setOriginalData(JSON.parse(JSON.stringify(student)));
+
+    setLoading(false);
 
     if (!student.photo) {
       setData((prev) => ({
@@ -83,14 +87,27 @@ const page = () => {
   const handleEdit = async () => {
     setEdit((prev) => !prev);
     if (edit && _.isEqual(data, originalData) == false) {
-      const { error } = await supabase
-        .from("student")
-        .update({ data: data })
-        .eq("userid", id);
-      console.log(error);
-      setOriginalData(data);
+      console.log("update");
+      await supabase.from("student").update({ data: data }).eq("userid", id);
+      setOriginalData(JSON.parse(JSON.stringify(data)));
     }
   };
+
+  const handleDelete = (index, name) => {
+    setData((prev) => ({
+      ...prev,
+      [name]: prev[name].filter((item, i) => i != index),
+    }));
+  };
+
+  if (loading) {
+    return (
+      <div className={styles.loading}>
+        <div className={styles.spinner}></div>
+        <div className={styles.text}>Loading...</div>
+      </div>
+    );
+  }
 
   return (
     <div className={styles.profile}>
@@ -257,51 +274,14 @@ const page = () => {
               />
             </a>
           </div>
-          <div className={styles.section}>
-            <div className={styles.title}>Education</div>
-            {data?.education?.length == 0 && (
-              <>No education found! edit profile to add.</>
-            )}
-            {data?.education?.map((item, index) => (
-              <div className={styles.item} key={index}>
-                <span
-                  contentEditable={edit}
-                  dangerouslySetInnerHTML={{
-                    __html: item.name || "education name",
-                  }}
-                  onBlur={(e) =>
-                    handleChangeObjIndex(e, "education.name", index)
-                  }
-                />
-                <span
-                  contentEditable={edit}
-                  dangerouslySetInnerHTML={{
-                    __html: item.description || "year and grades",
-                  }}
-                  onBlur={(e) =>
-                    handleChangeObjIndex(e, "education.description", index)
-                  }
-                />
-              </div>
-            ))}
-            <button
-              onClick={() =>
-                setData((prev) => ({
-                  ...prev,
-                  education: [
-                    ...prev.education,
-                    { name: "education name", description: "year and grades" },
-                  ],
-                }))
-              }
-              hidden={!edit}
-            >
-              Add Education
-            </button>
-          </div>
+          <Section
+            name="education"
+            data={data?.education}
+            {...{ setData, handleChangeObjIndex, handleDelete, edit }}
+          />
           <div className={styles.section}>
             <div className={styles.title}>Skills</div>
-            <input type="text" />
+            <input type="text" defaultValue="Work In Progress" />
             {data?.skills?.length == 0 && (
               <>No skills found! edit profile to add.</>
             )}
@@ -313,113 +293,16 @@ const page = () => {
           </div>
         </div>
         <div className={styles.right}>
-          <div className={`${styles.section} ${styles.projects}`}>
-            <div className={styles.title}>Projects</div>
-            {data?.projects?.length == 0 && (
-              <>No projetcs found! edit profile to add.</>
-            )}
-            {data?.projects?.map((item, index) => (
-              <div className={styles.item} key={index}>
-                <span
-                  className={styles.name}
-                  contentEditable={edit}
-                  dangerouslySetInnerHTML={{
-                    __html: item.name || "projects name",
-                  }}
-                  onBlur={(e) =>
-                    handleChangeObjIndex(e, "projects.name", index)
-                  }
-                />
-                <span
-                  className={styles.description}
-                  contentEditable={edit}
-                  dangerouslySetInnerHTML={{
-                    __html: item.description || "project description",
-                  }}
-                  onBlur={(e) =>
-                    handleChangeObjIndex(e, "projects.description", index)
-                  }
-                />
-                <a href={edit ? null : item?.link} target="_blank">
-                  <span
-                    className={styles.link}
-                    contentEditable={edit}
-                    dangerouslySetInnerHTML={{
-                      __html: item.link || "project link",
-                    }}
-                    onBlur={(e) =>
-                      handleChangeObjIndex(e, "projects.link", index)
-                    }
-                  />
-                </a>
-                {edit && (
-                  <button onClick={() => handleDelete(index)}>Delete</button>
-                )}
-              </div>
-            ))}
-            <button
-              hidden={!edit}
-              onClick={() =>
-                setData((prev) => ({
-                  ...prev,
-                  projects: [
-                    ...prev.projects,
-                    {
-                      name: "projects name",
-                      description: "project description",
-                      link: "project link",
-                    },
-                  ],
-                }))
-              }
-            >
-              Add Project
-            </button>
-          </div>
-          <div className={`${styles.section} ${styles.experience}`}>
-            <div className={styles.title}>Experience</div>
-            {data?.experience?.length == 0 && (
-              <>No experiences found! edit profile to add.</>
-            )}
-            {data?.experience?.map((item, index) => (
-              <div className={styles.item} key={index}>
-                <span
-                  className={styles.name}
-                  contentEditable={edit}
-                  dangerouslySetInnerHTML={{
-                    __html: item.name || "experience name",
-                  }}
-                  onBlur={(e) =>
-                    handleChangeObjIndex(e, "experience.name", index)
-                  }
-                />
-                <span
-                  className={styles.description}
-                  contentEditable={edit}
-                  dangerouslySetInnerHTML={{
-                    __html: item.description || "description",
-                  }}
-                  onBlur={(e) =>
-                    handleChangeObjIndex(e, "experience.description", index)
-                  }
-                />
-              </div>
-            ))}
-            <button
-              hidden={!edit}
-              onClick={() =>
-                setData((prev) => ({
-                  ...prev,
-                  experience: [
-                    ...prev.experience,
-                    { name: "experience name", description: "description" },
-                  ],
-                }))
-              }
-            >
-              Add Experience
-            </button>
-          </div>
+          <Section
+            name="projects"
+            data={data?.projects}
+            {...{ setData, handleChangeObjIndex, handleDelete, edit }}
+          />
+          <Section
+            name="experience"
+            data={data?.experience}
+            {...{ setData, handleChangeObjIndex, handleDelete, edit }}
+          />
         </div>
       </div>
       <button onClick={() => handleEdit()} className={styles.float}>
