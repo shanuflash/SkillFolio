@@ -28,6 +28,7 @@
 }
 
 .photo {
+  position: relative;
   justify-content: center;
   display: flex;
   height: 300px;
@@ -38,6 +39,13 @@
   /* height: 300px; */
   aspect-ratio: 0.78;
   border-radius: 2rem;
+}
+
+.upimg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .uploadimg {

@@ -25,7 +25,7 @@ const Login = async () => {
       const { error } = await supabase.from("student").insert({
         userid: data.user.id,
         data: {
-          name: "",
+          name: data.user.user_metadata.first_name || "",
           designation: "",
           description: "",
           address: "",
@@ -40,7 +40,8 @@ const Login = async () => {
           skills: [],
           experience: [],
           projects: [],
-          photo: `https://jvnstfpaokvohgpmuewa.supabase.co/storage/v1/object/public/images/${data.user.id}.png`,
+          photo:
+            "https://jvnstfpaokvohgpmuewa.supabase.co/storage/v1/object/public/images/default.svg",
         },
       });
       console.log(error);
