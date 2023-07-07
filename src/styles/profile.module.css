@@ -28,16 +28,21 @@
 }
 
 .photo {
-  position: relative;
+  justify-content: center;
   display: flex;
-  /* justify-content: center; */
   height: 300px;
   width: 25%;
 }
 
-.photo > img {
-  aspect-ratio: 7/9;
+.photo img {
+  /* height: 300px; */
+  aspect-ratio: 0.78;
   border-radius: 2rem;
+}
+
+.uploadimg {
+  display: flex;
+  flex-direction: column;
 }
 
 .head > .content {
