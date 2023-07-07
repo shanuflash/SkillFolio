@@ -3,20 +3,34 @@ import styles from "@/styles/profile.module.css";
 
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useEffect, useState } from "react";
+import _, { set } from "lodash";
 
 //TODO: add check xss
-//TODO: add check for empty fields
 //TODO: add skills, certification(certificate ID)/achievements, language
 const page = () => {
   const supabase = createClientComponentClient();
   const [data, setData] = useState({});
   const [originalData, setOriginalData] = useState({});
   const [id, setId] = useState(-1);
+  const [photo, setPhoto] = useState(null);
   const [edit, setEdit] = useState(false);
 
   useEffect(() => {
     handleData();
   }, []);
+
+  useEffect(() => {
+    if (photo) {
+      uploadImg();
+    }
+  }, [photo]);
+
+  const uploadImg = async () => {
+    const { data, error } = await supabase.storage
+      .from("images")
+      .upload(id + ".png", photo);
+    console.log(data, error);
+  };
 
   const handleData = async () => {
     const {
@@ -26,11 +40,24 @@ const page = () => {
         },
       },
     } = await supabase.auth.getSession();
+
     const {
       data: [{ data: student }],
     } = await supabase.from("student").select("data").eq("userid", id);
-    setData(student);
-    setOriginalData(student);
+
+    setData(JSON.parse(JSON.stringify(student)));
+    setOriginalData(JSON.parse(JSON.stringify(student)));
+
+    if (!student.photo) {
+      setData((prev) => ({
+        ...prev,
+        photo: `https://jvnstfpaokvohgpmuewa.supabase.co/storage/v1/object/public/images/${id}.png`,
+      }));
+      setOriginalData((prev) => ({
+        ...prev,
+        photo: `https://jvnstfpaokvohgpmuewa.supabase.co/storage/v1/object/public/images/${id}.png`,
+      }));
+    }
     setId(id);
   };
 
@@ -39,7 +66,7 @@ const page = () => {
   };
 
   const handleChangeObj = (e, name) => {
-    const key = name.split("."); //socials linkedin
+    const key = name.split(".");
     setData((prev) => ({
       ...prev,
       [key[0]]: { ...prev[key[0]], [key[1]]: e.target.innerText },
@@ -55,25 +82,15 @@ const page = () => {
 
   const handleEdit = async () => {
     setEdit((prev) => !prev);
-    if (edit && JSON.stringify(data) !== JSON.stringify(originalData)) {
+    if (edit && _.isEqual(data, originalData) == false) {
       const { error } = await supabase
         .from("student")
         .update({ data: data })
         .eq("userid", id);
       console.log(error);
+      setOriginalData(data);
     }
   };
-
-  // const handleEdit = async () => {
-  //   setEdit((prev) => !prev);
-  //   if (edit) {
-  //     const { error } = await supabase
-  //       .from("student")
-  //       .update({ data: data })
-  //       .eq("userid", id);
-  //     console.log(error);
-  //   }
-  // };
 
   return (
     <div className={styles.profile}>
@@ -82,7 +99,7 @@ const page = () => {
       </div>
       <div className={styles.head}>
         <div className={styles.photo}>
-          {!data?.photo ? (
+          {data?.photo ? (
             <img src={"/212220220044.jpg"} alt="profile picture" />
           ) : (
             <div className={styles.uploadimg}>
@@ -97,7 +114,24 @@ const page = () => {
                   d="M4 22q-.825 0-1.413-.588T2 20v-4h2v4h4v2H4ZM2 8V4q0-.825.588-1.413T4 2h4v2H4v4H2Zm14 14v-2h4v-4h2v4q0 .825-.588 1.413T20 22h-4Zm4-14V4h-4V2h4q.825 0 1.413.588T22 4v4h-2Zm-8 4q-1.275 0-2.138-.863T9 9q0-1.25.863-2.125T12 6q1.25 0 2.125.875T15 9q0 1.275-.875 2.138T12 12Zm-6 6v-1.9q0-.525.263-.988t.712-.737q1.15-.675 2.413-1.025T12 13q1.35 0 2.613.35t2.412 1.025q.45.275.713.738T18 16.1V18H6Z"
                 />
               </svg>
-              <button>Upload Image</button>
+              <button className={styles.uploadinput}>
+                <label
+                  style={{
+                    cursor: "pointer",
+                  }}
+                  htmlFor="img"
+                >
+                  Upload Image
+                </label>
+              </button>
+              <input
+                hidden
+                type="file"
+                name="img"
+                id="img"
+                accept="image/png, image/jpeg, image/svg+xml, image/webp"
+                onChange={(e) => setPhoto(e.target.files[0])}
+              />
             </div>
           )}
         </div>
@@ -271,8 +305,10 @@ const page = () => {
             {data?.skills?.length == 0 && (
               <>No skills found! edit profile to add.</>
             )}
-            {data?.skills?.map((item) => (
-              <div className={styles["skill-item-card"]}>{item}</div>
+            {data?.skills?.map((item, index) => (
+              <div key={index} className={styles["skill-item-card"]}>
+                {item}
+              </div>
             ))}
           </div>
         </div>
@@ -283,7 +319,7 @@ const page = () => {
               <>No projetcs found! edit profile to add.</>
             )}
             {data?.projects?.map((item, index) => (
-              <div className={styles.item}>
+              <div className={styles.item} key={index}>
                 <span
                   className={styles.name}
                   contentEditable={edit}
@@ -304,19 +340,21 @@ const page = () => {
                     handleChangeObjIndex(e, "projects.description", index)
                   }
                 />
-                <span
-                  className={styles.link}
-                  contentEditable={edit}
-                  dangerouslySetInnerHTML={{
-                    __html: item.link || "project link",
-                  }}
-                  onBlur={(e) =>
-                    handleChangeObjIndex(e, "projects.link", index)
-                  }
-                />
-                {/* <a href={item?.link} target="_blank">
-                  {item?.link}
-                </a> */}
+                <a href={edit ? null : item?.link} target="_blank">
+                  <span
+                    className={styles.link}
+                    contentEditable={edit}
+                    dangerouslySetInnerHTML={{
+                      __html: item.link || "project link",
+                    }}
+                    onBlur={(e) =>
+                      handleChangeObjIndex(e, "projects.link", index)
+                    }
+                  />
+                </a>
+                {edit && (
+                  <button onClick={() => handleDelete(index)}>Delete</button>
+                )}
               </div>
             ))}
             <button
@@ -343,8 +381,8 @@ const page = () => {
             {data?.experience?.length == 0 && (
               <>No experiences found! edit profile to add.</>
             )}
-            {data?.experience?.map((item) => (
-              <div className={styles.item}>
+            {data?.experience?.map((item, index) => (
+              <div className={styles.item} key={index}>
                 <span
                   className={styles.name}
                   contentEditable={edit}
