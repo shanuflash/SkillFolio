@@ -15,6 +15,7 @@ const Login = async () => {
       email: email,
       password: password,
       options: {
+        emailRedirectTo: "https://skillfolio.vercel.app/",
         data: {
           first_name: name,
         },

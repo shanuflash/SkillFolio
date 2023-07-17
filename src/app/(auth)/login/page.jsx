@@ -1,19 +1,21 @@
-import { createServerActionClient } from "@supabase/auth-helpers-nextjs";
-import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
+"use client";
+
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { redirect, useRouter } from "next/navigation";
 import styles from "@/styles/login.module.css";
 
-const Login = async () => {
+const Login = () => {
+  const router = useRouter();
+  const supabase = createClientComponentClient();
   const handleSignin = async (formData) => {
-    "use server";
-    const supabase = createServerActionClient({ cookies });
     const email = formData.get("email");
     const password = formData.get("password");
     const { data, error } = await supabase.auth.signInWithPassword({
       email: email,
       password: password,
     });
-    if (!error) {
+    console.log(data, error);
+    if (data) {
       await supabase.from("student").insert({
         userid: data.user.id,
         data: {
@@ -36,7 +38,7 @@ const Login = async () => {
             "https://jvnstfpaokvohgpmuewa.supabase.co/storage/v1/object/public/images/default.svg",
         },
       });
-      redirect("/");
+      router.push("/profile");
     }
   };
 
