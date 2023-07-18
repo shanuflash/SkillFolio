@@ -1,12 +1,13 @@
 "use client";
 
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import styles from "@/styles/login.module.css";
 
 const Login = () => {
   const router = useRouter();
   const supabase = createClientComponentClient();
+
   const handleSignin = async (formData) => {
     const email = formData.get("email");
     const password = formData.get("password");
@@ -14,8 +15,7 @@ const Login = () => {
       email: email,
       password: password,
     });
-    console.log(data, error);
-    if (data) {
+    if (!error) {
       await supabase.from("student").insert({
         userid: data.user.id,
         data: {
