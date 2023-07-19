@@ -41,6 +41,35 @@ const page = () => {
   const handleData = async () => {
     const {
       data: {
+        session: { user },
+      },
+    } = await supabase.auth.getSession();
+    console.log(user);
+    await supabase.from("student").insert({
+      userid: user.id,
+      data: {
+        name: user.user_metadata.first_name || "",
+        designation: "",
+        description: "",
+        address: "",
+        phone: "",
+        email: "",
+        dob: "",
+        socials: {
+          linkedin: "",
+          github: "",
+        },
+        education: [],
+        skills: [],
+        experience: [],
+        projects: [],
+        photo:
+          "https://jvnstfpaokvohgpmuewa.supabase.co/storage/v1/object/public/images/default.svg",
+      },
+    });
+
+    const {
+      data: {
         session: {
           user: { id },
         },

@@ -1,50 +1,32 @@
 "use client";
 
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
 import styles from "@/styles/login.module.css";
 
 const Login = () => {
-  const router = useRouter();
   const supabase = createClientComponentClient();
 
-  const handleSignin = async (formData) => {
-    const email = formData.get("email");
-    const password = formData.get("password");
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email: email,
-      password: password,
+  const handleGithub = async () => {
+    await supabase.auth.signInWithOAuth({
+      provider: "github",
+      options: {
+        redirectTo: "http://localhost:3000/auth/callback",
+      },
     });
-    if (!error) {
-      await supabase.from("student").insert({
-        userid: data.user.id,
-        data: {
-          name: data.user.user_metadata.first_name || "",
-          designation: "",
-          description: "",
-          address: "",
-          phone: "",
-          email: "",
-          dob: "",
-          socials: {
-            linkedin: "",
-            github: "",
-          },
-          education: [],
-          skills: [],
-          experience: [],
-          projects: [],
-          photo:
-            "https://jvnstfpaokvohgpmuewa.supabase.co/storage/v1/object/public/images/default.svg",
-        },
-      });
-      router.push("/profile");
-    }
   };
 
   return (
     <div className={styles.Login}>
-      <form className={styles.left} action={handleSignin}>
+      <button
+        onClick={handleGithub}
+        style={{
+          marginTop: "20px",
+        }}
+      >
+        Github login
+      </button>
+      {/* <form className={styles.left} action={handleSignin}>
         <div className={styles.info}>
           <span style={{ fontWeight: "800" }}>Login</span> to continue...
         </div>
@@ -73,7 +55,7 @@ const Login = () => {
             Login
           </button>
         </div>
-      </form>
+      </form> */}
     </div>
   );
 };
