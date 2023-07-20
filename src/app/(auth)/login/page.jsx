@@ -5,7 +5,7 @@ import styles from "@/styles/login.module.css";
 const Login = () => {
   return (
     <div className={styles.Login}>
-      <form className={styles.left} action={handleSignin}>
+      <form className={styles.left}>
         <div className={styles.info}>
           <span style={{ fontWeight: "800" }}>Login</span> to continue...
         </div>
