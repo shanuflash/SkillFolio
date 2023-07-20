@@ -11,7 +11,7 @@ const Login = () => {
     await supabase.auth.signInWithOAuth({
       provider: "github",
       options: {
-        redirectTo: `${window.location.origin}/auth/callback`,
+        redirectTo: "https://skillfolio.vercel.app//auth/callback",
       },
     });
   };
