@@ -28,13 +28,17 @@ const page = () => {
   }, [photo]);
 
   const uploadImg = async () => {
-    await supabase.storage.from("images").upload(id + ".png", photo, {
-      cacheControl: "60",
-      upsert: true,
-    });
+    console.log("img");
+    const { data, error } = await supabase.storage
+      .from("images")
+      .upload(id + ".png", photo, {
+        cacheControl: "60",
+        upsert: true,
+      });
+    console.log(data, error);
     setData((prev) => ({
       ...prev,
-      photo: `https://jvnstfpaokvohgpmuewa.supabase.co/storage/v1/object/public/images/${id}.png`,
+      photo: `https://gjzbafqybpgajdmjgabg.supabase.co/storage/v1/object/public/images/${id}.png`,
     }));
   };
 
@@ -178,7 +182,14 @@ const page = () => {
         </div>
         <div className={styles.content}>
           <div className={styles.name}>
-            {data?.name || "your name"}{" "}
+            <span
+              className={styles.name}
+              contentEditable={edit}
+              dangerouslySetInnerHTML={{
+                __html: data?.name || "your name",
+              }}
+              onBlur={(e) => handleChange(e, "name")}
+            />
             <span
               className={styles.profession}
               contentEditable={edit}
