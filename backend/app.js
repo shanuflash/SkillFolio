@@ -14,7 +14,7 @@ app.use(errorHandler);
 
 const connection = () => {
   try {
-    dbConnection(process.env.NEXT_PUBLIC_MONGO_URL);
+   
     app.listen(3001, (req, res) => {
       console.log("Server is running at port 3001");
     });

@@ -3,6 +3,8 @@ import { badRequest, SuccessRequest } from "../error/index.js";
 import Portfolio from "../schema/portfolioSchema.js";
 import createToken from "../utils/jwt.js";
 
+dbConnection(process.env.NEXT_PUBLIC_MONGO_URL);
+
 export async function GET(req) {
   try {
     if (!req.body.Email || !req.body.Password) {
