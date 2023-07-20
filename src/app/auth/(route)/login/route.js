@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
-import { badRequest, SuccessRequest } from "../error/index.js";
-import Portfolio from "../schema/portfolioSchema.js";
-import createToken from "../utils/jwt.js";
-import dbConnection from "../db/portfolio.js";
+import { badRequest, SuccessRequest } from "../../error/index.js";
+import Portfolio from "../../schema/portfolioSchema.js";
+import createToken from "../../utils/jwt.js";
+import dbConnection from "../../db/portfolio.js";
 
 dbConnection(process.env.NEXT_PUBLIC_MONGO_URL);
 
