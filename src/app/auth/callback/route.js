@@ -5,12 +5,12 @@ import { NextResponse } from "next/server";
 export async function GET(request) {
   const requestUrl = new URL(request.url);
   const code = requestUrl.searchParams.get("code");
-  console.log("code", code);
+  return NextResponse.json({ code });
 
   if (code) {
     const supabase = createRouteHandlerClient({ cookies });
-    await supabase.auth.exchangeCodeForSession(code);
+    const { data, error } = await supabase.auth.exchangeCodeForSession(code);
+    console.log(data, error);
   }
-
   return NextResponse.redirect(requestUrl.origin);
 }
