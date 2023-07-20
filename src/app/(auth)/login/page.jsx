@@ -1,32 +1,11 @@
 "use client";
 
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-// import { useRouter } from "next/navigation";
 import styles from "@/styles/login.module.css";
 
 const Login = () => {
-  const supabase = createClientComponentClient();
-
-  const handleGithub = async () => {
-    await supabase.auth.signInWithOAuth({
-      provider: "github",
-      options: {
-        redirectTo: "https://skillfolio.vercel.app//auth/callback",
-      },
-    });
-  };
-
   return (
     <div className={styles.Login}>
-      <button
-        onClick={handleGithub}
-        style={{
-          marginTop: "20px",
-        }}
-      >
-        Github login
-      </button>
-      {/* <form className={styles.left} action={handleSignin}>
+      <form className={styles.left} action={handleSignin}>
         <div className={styles.info}>
           <span style={{ fontWeight: "800" }}>Login</span> to continue...
         </div>
@@ -55,7 +34,7 @@ const Login = () => {
             Login
           </button>
         </div>
-      </form> */}
+      </form>
     </div>
   );
 };
