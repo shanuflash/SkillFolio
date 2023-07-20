@@ -1,5 +1,5 @@
 import Express from "express";
-import dbConnection from "./db/portfolio.js";
+import dbConnection from "../src/app/auth/db/portfolio.js";
 import {} from "dotenv/config.js";
 import portfolioRouter from "./router/portfolioRouter.js";
 import errorHandler from "./Middleware/error-handler.js";
@@ -14,7 +14,7 @@ app.use(errorHandler);
 
 const connection = () => {
   try {
-    dbConnection(process.env.MONGO_URL);
+    dbConnection(process.env.NEXT_PUBLIC_MONGO_URL);
     app.listen(3001, (req, res) => {
       console.log("Server is running at port 3001");
     });

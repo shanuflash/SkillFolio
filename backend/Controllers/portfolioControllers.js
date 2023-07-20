@@ -1,6 +1,6 @@
 import { badRequest, SuccessRequest } from "../error/index.js";
-import Portfolio from "../model/portfolioSchema.js";
-import createToken from "../utils/jwt.js";
+import Portfolio from "../../src/app/auth/schema/portfolioSchema.js";
+import createToken from "../../src/app/auth/utils/jwt.js";
 
 const Signin = async (req, res, next) => {
   try {
