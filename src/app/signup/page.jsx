@@ -7,9 +7,9 @@ const Login = () => {
     Email: "",
     Password: "",
   });
-  const handleLogin = async (e) => {
+  const handleSignup = async (e) => {
     e.preventDefault();
-    await fetch("http://localhost:3000/auth/login", {
+    await fetch("http://localhost:3000/auth/signup", {
       cache: "no-store",
       credentials: "include",
       method: "POST",
@@ -18,13 +18,37 @@ const Login = () => {
         Password: credentials.Password,
       }),
     });
+    // const { error } = await supabase.from("student").insert({
+    //   userid: data.user.id,
+    //   data: {
+    //     name: data.user.user_metadata.first_name || "",
+    //     designation: "",
+    //     description: "",
+    //     address: "",
+    //     phone: "",
+    //     email: "",
+    //     dob: "",
+    //     socials: {
+    //       linkedin: "",
+    //       github: "",
+    //     },
+    //     education: [],
+    //     skills: [],
+    //     experience: [],
+    //     projects: [],
+    //     photo:
+    //       "https://jvnstfpaokvohgpmuewa.supabase.co/storage/v1/object/public/images/default.svg",
+    //   },
+    // });
+    // console.log(error);
+    redirect("/");
   };
 
   return (
     <div className={styles.Login}>
-      <form className={styles.left} onSubmit={(e) => handleLogin(e)}>
+      <form className={styles.left} onSubmit={(e) => handleSignup(e)}>
         <div className={styles.info}>
-          <span style={{ fontWeight: "800" }}>Login</span> to continue...
+          <span style={{ fontWeight: "800" }}>Sign Up </span> to continue...
         </div>
         <div className={styles["input-master"]}>
           <div className={styles["input-container"]}>

@@ -4,7 +4,6 @@ export async function middleware(req) {
   const res = NextResponse.next();
   const pathname = req.nextUrl.pathname;
   const token = req.cookies.get("token")?.value;
-  console.log(token);
   if (!token && (pathname === "/" || pathname === "/profile")) {
     return NextResponse.redirect(new URL("/login", req.url));
   }
