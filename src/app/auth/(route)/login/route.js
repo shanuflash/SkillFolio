@@ -13,19 +13,25 @@ export async function POST(req, res) {
       throw new badRequest("Email or Password is missing");
     }
     const User = await Portfolio.findOne({
-      Email: req.body.Email,
-      Password: req.body.Password,
+      Email: Email,
+      Password: Password,
     });
     if (User) {
       const token = createToken(User);
-      let response = NextResponse.next();
+      const response = NextResponse.json(
+        {
+          message: "User logged in successfully",
+        },
+        {
+          status: 200,
+        }
+      );
       response.cookies.set("token", token, {
         secure: true,
         httpOnly: true,
         maxAge: 1000 * 60 * 60 * 24,
       });
-      // access cookie in frontend use cookie-parser
-      throw new SuccessRequest("User logged in successfully");
+      return response;
     } else {
       throw new badRequest("User does not exist");
     }

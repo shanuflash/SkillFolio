@@ -1,14 +1,12 @@
 import styles from "@/styles/nav.module.css";
-import { createServerActionClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
-import Link from "next/link";
 import { redirect } from "next/navigation";
+import Link from "next/link";
 
 const nav = async () => {
   const handleLogout = async () => {
     "use server";
-    const supabase = createServerActionClient({ cookies });
-    await supabase.auth.signOut();
+    cookies().set("token", null);
     redirect("/");
   };
 
