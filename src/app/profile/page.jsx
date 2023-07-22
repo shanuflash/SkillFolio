@@ -3,6 +3,7 @@ import styles from "@/styles/profile.module.css";
 import Section from "@/components/profile/section";
 import { useEffect, useState } from "react";
 import _ from "lodash";
+import { BASE_URL } from "@/config";
 
 //TODO: add check xss
 //TODO: add skills, certification(certificate ID)/achievements, language
@@ -35,7 +36,7 @@ const page = () => {
 
   const handleData = async () => {
     const response = await fetch(
-      "http://localhost:3000/api/users/64bc166577e7230b379908d5",
+      BASE_URL + "/api/users/64bc166577e7230b379908d5",
       {
         cache: "no-store",
         credentials: "include",
@@ -72,7 +73,7 @@ const page = () => {
   const handleEdit = async () => {
     setEdit((prev) => !prev);
     if (edit && _.isEqual(data, originalData) == false) {
-      await fetch("http://localhost:3000/api/users/64bc166577e7230b379908d5", {
+      const response = await fetch(BASE_URL + "/api/users/" + id, {
         cache: "no-store",
         credentials: "include",
         method: "PUT",

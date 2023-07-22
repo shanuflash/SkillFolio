@@ -1,8 +1,10 @@
 import styles from "@/styles/profile.module.css";
 
+import { BASE_URL } from "@/config";
+
 const page = async ({ params }) => {
   const id = params.userid;
-  const response = await fetch(`http://localhost:3000/api/users/${id}`, {
+  const response = await fetch(BASE_URL + "/api/users/" + id, {
     cache: "no-store",
     credentials: "include",
     method: "GET",

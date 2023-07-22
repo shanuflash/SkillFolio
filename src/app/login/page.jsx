@@ -2,8 +2,10 @@
 import styles from "@/styles/login.module.css";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { BASE_URL } from "@/config";
 
 const Login = () => {
+  console.log(BASE_URL);
   const router = useRouter();
   const [credentials, setCredentials] = useState({
     Email: "",
@@ -11,7 +13,7 @@ const Login = () => {
   });
   const handleLogin = async (e) => {
     e.preventDefault();
-    const response = await fetch("http://localhost:3000/api/login", {
+    const response = await fetch(BASE_URL + "/api/login", {
       cache: "no-store",
       credentials: "include",
       method: "POST",

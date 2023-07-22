@@ -1,4 +1,5 @@
 "use client";
+import { BASE_URL } from "@/config";
 import styles from "@/styles/login.module.css";
 import { useState } from "react";
 
@@ -9,7 +10,7 @@ const Login = () => {
   });
   const handleSignup = async (e) => {
     e.preventDefault();
-    await fetch("http://localhost:3000/api/signup", {
+    const response = await fetch(BASE_URL + "/api/login", {
       cache: "no-store",
       credentials: "include",
       method: "POST",

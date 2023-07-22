@@ -1,8 +1,9 @@
 import styles from "./page.module.css";
 import Link from "next/link";
+import { BASE_URL } from "@/config";
 
 const Home = async () => {
-  const response = await fetch("http://localhost:3000/api/users", {
+  const response = await fetch(BASE_URL + "/api/users", {
     cache: "no-store",
     credentials: "include",
     method: "GET",
@@ -10,7 +11,7 @@ const Home = async () => {
   const { userDetail: data } = await response.json();
   return (
     <div className={styles.main}>
-      {data.map((student) => {
+      {data?.map((student) => {
         return (
           <Link href={"profile/" + student.user}>
             <div className={styles.card}>
