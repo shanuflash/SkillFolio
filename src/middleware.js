@@ -1,9 +1,8 @@
 import { NextResponse } from "next/server";
-import { jwtVerify } from "./app/api/utils/jwt.js";
 
 export async function middleware(req) {
   const res = NextResponse.next();
-  const pathname = req.nextUrl.pathname;
+  // const pathname = req.nextUrl.pathname;
 
   // try {
   //   const token = req.cookies.get("token")?.value;
