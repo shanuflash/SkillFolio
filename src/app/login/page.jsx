@@ -20,8 +20,8 @@ const Login = () => {
         Password: credentials.Password,
       }),
     });
-    const data = await response.json();
-    router.push("/profile");
+    // const data = await response.json();
+    // router.push("/profile");
   };
 
   return (

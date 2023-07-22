@@ -40,8 +40,6 @@ const Login = () => {
     //       "https://jvnstfpaokvohgpmuewa.supabase.co/storage/v1/object/public/images/default.svg",
     //   },
     // });
-    // console.log(error);
-    redirect("/");
   };
 
   return (
