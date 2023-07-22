@@ -10,18 +10,15 @@ export async function POST(req, res) {
   try {
     const { Email, Password } = await req.json();
     if (!Email || !Password) {
-      console.log("Email or Password is missing");
       throw new badRequest("Email or Password is missing");
     }
     const User = await authUser.findOne({ email: Email });
     if (!User) {
-      console.log("User not found");
       throw new badRequest("User not found");
     }
     const isMatch = await comparePassword(Password, User.password);
     console.log(isMatch, Password, User.password);
     if (!isMatch) {
-      console.log("Password is not correct");
       throw new badRequest("Password is not correct");
     }
     const token = jwtGenrator({ payload: User._id });
@@ -33,7 +30,6 @@ export async function POST(req, res) {
       httpOnly: true,
       maxAge: 1000 * 60 * 60 * 24,
     });
-    console.log("cookie set");
     return response;
   } catch (error) {
     return NextResponse.json({ message: error.message }, { status: 500 });

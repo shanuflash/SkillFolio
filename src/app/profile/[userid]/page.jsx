@@ -1,18 +1,16 @@
 import styles from "@/styles/profile.module.css";
-import { cookies } from "next/headers";
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 
 const page = async ({ params }) => {
   const id = params.userid;
-  const supabase = createServerComponentClient({ cookies });
-  const { data: student, error } = await supabase
-    .from("student")
-    .select("data")
-    .eq("userid", id);
-  if (student.length == 0) {
+  const response = await fetch(`http://localhost:3000/api/users/${id}`, {
+    cache: "no-store",
+    credentials: "include",
+    method: "GET",
+  });
+  const { userDetail: [data] = [] } = await response.json();
+  if (!data) {
     return <div>Student not found</div>;
   }
-  const data = student[0]?.data;
 
   return (
     <div className={styles.profile}>

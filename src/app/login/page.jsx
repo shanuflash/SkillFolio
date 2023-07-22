@@ -11,7 +11,7 @@ const Login = () => {
   });
   const handleLogin = async (e) => {
     e.preventDefault();
-    const response = await fetch("http://localhost:3000/auth/login", {
+    const response = await fetch("http://localhost:3000/api/login", {
       cache: "no-store",
       credentials: "include",
       method: "POST",
@@ -20,8 +20,10 @@ const Login = () => {
         Password: credentials.Password,
       }),
     });
-    // const data = await response.json();
-    // router.push("/profile");
+    const data = await response.json();
+    if (data.message == "User Found") {
+      router.push("/profile");
+    }
   };
 
   return (

@@ -4,6 +4,8 @@ import { redirect } from "next/navigation";
 import Link from "next/link";
 
 const nav = async () => {
+  const { value } = cookies().get("token") || {};
+
   const handleLogout = async () => {
     "use server";
     cookies().set("token", null);
@@ -18,11 +20,16 @@ const nav = async () => {
       <div className={styles.user}>
         <form action={handleLogout}>
           <button className={styles.logout} type="submit">
-            Log out
+            {value && "Log out"}
           </button>
         </form>
-        <Link href="/profile" className={styles.profile}>
-          My Profile
+        <Link
+          href={`
+          ${value ? "/profile" : "/login"}
+        `}
+          className={styles.profile}
+        >
+          {value ? "My Profile" : "Login"}
         </Link>
       </div>
     </div>

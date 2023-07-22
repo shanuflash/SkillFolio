@@ -1,7 +1,5 @@
 "use client";
 import styles from "@/styles/profile.module.css";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { useEffect, useState } from "react";
 import _ from "lodash";
 
 const section = ({

@@ -1,7 +1,6 @@
 "use client";
 import styles from "@/styles/profile.module.css";
 import Section from "@/components/profile/section";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useEffect, useState } from "react";
 import _ from "lodash";
 
@@ -9,7 +8,6 @@ import _ from "lodash";
 //TODO: add skills, certification(certificate ID)/achievements, language
 
 const page = () => {
-  const supabase = createClientComponentClient();
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState({});
   const [originalData, setOriginalData] = useState({});
@@ -29,13 +27,6 @@ const page = () => {
 
   const uploadImg = async () => {
     console.log("img");
-    const { data, error } = await supabase.storage
-      .from("images")
-      .upload(id + ".png", photo, {
-        cacheControl: "60",
-        upsert: true,
-      });
-    console.log(data, error);
     setData((prev) => ({
       ...prev,
       photo: `https://gjzbafqybpgajdmjgabg.supabase.co/storage/v1/object/public/images/${id}.png`,
@@ -43,50 +34,20 @@ const page = () => {
   };
 
   const handleData = async () => {
-    const {
-      data: {
-        session: { user },
-      },
-    } = await supabase.auth.getSession();
-    console.log(user);
-    await supabase.from("student").insert({
-      userid: user.id,
-      data: {
-        name: user.user_metadata.first_name || "",
-        designation: "",
-        description: "",
-        address: "",
-        phone: "",
-        email: "",
-        dob: "",
-        socials: {
-          linkedin: "",
-          github: "",
-        },
-        education: [],
-        skills: [],
-        experience: [],
-        projects: [],
-        photo:
-          "https://jvnstfpaokvohgpmuewa.supabase.co/storage/v1/object/public/images/default.svg",
-      },
-    });
-
-    const {
-      data: {
-        session: {
-          user: { id },
-        },
-      },
-    } = await supabase.auth.getSession();
-
-    const {
-      data: [{ data: student }],
-    } = await supabase.from("student").select("data").eq("userid", id);
-    setData(student);
-    setOriginalData(JSON.parse(JSON.stringify(student)));
+    const response = await fetch(
+      "http://localhost:3000/api/users/64bc166577e7230b379908d5",
+      {
+        cache: "no-store",
+        credentials: "include",
+        method: "GET",
+      }
+    );
+    const { userDetail } = await response.json();
+    console.log(userDetail[0]);
+    setData(userDetail[0]);
+    setOriginalData(JSON.parse(JSON.stringify(userDetail[0])));
     setLoading(false);
-    setId(id);
+    setId("64bc166577e7230b379908d5");
   };
 
   const handleChange = (e, name) => {
@@ -111,8 +72,12 @@ const page = () => {
   const handleEdit = async () => {
     setEdit((prev) => !prev);
     if (edit && _.isEqual(data, originalData) == false) {
-      console.log("update");
-      await supabase.from("student").update({ data: data }).eq("userid", id);
+      await fetch("http://localhost:3000/api/users/64bc166577e7230b379908d5", {
+        cache: "no-store",
+        credentials: "include",
+        method: "PUT",
+        body: JSON.stringify(data),
+      });
       setOriginalData(JSON.parse(JSON.stringify(data)));
     }
   };

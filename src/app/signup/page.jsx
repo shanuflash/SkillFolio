@@ -9,7 +9,7 @@ const Login = () => {
   });
   const handleSignup = async (e) => {
     e.preventDefault();
-    await fetch("http://localhost:3000/auth/signup", {
+    await fetch("http://localhost:3000/api/signup", {
       cache: "no-store",
       credentials: "include",
       method: "POST",

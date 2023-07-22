@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { jwtVerify } from "./app/auth/utils/jwt.js";
+import { jwtVerify } from "./app/api/utils/jwt.js";
 
 export async function middleware(req) {
   const res = NextResponse.next();
