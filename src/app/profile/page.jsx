@@ -4,6 +4,7 @@ import Section from "@/components/profile/section";
 import { useEffect, useState } from "react";
 import _ from "lodash";
 import { BASE_URL } from "@/config";
+import userId from "@/components/userId";
 
 //TODO: add check xss
 //TODO: add skills, certification(certificate ID)/achievements, language
@@ -29,15 +30,12 @@ const page = () => {
   const uploadImg = async () => {
     const formData = new FormData();
     formData.append("file", photo);
-    const response = await fetch(
-      BASE_URL + "/api/users/64bc166577e7230b379908d5",
-      {
-        cache: "no-store",
-        credentials: "include",
-        method: "POST",
-        body: formData,
-      }
-    );
+    const response = await fetch(BASE_URL + `/api/users/${id}`, {
+      cache: "no-store",
+      credentials: "include",
+      method: "POST",
+      body: formData,
+    });
     const { message, secure_url } = (await response.json()) || {};
     if (secure_url) {
       setData((prev) => ({
@@ -67,20 +65,18 @@ const page = () => {
   // };
 
   const handleData = async () => {
-    const response = await fetch(
-      BASE_URL + "/api/users/64bc166577e7230b379908d5",
-      {
-        cache: "no-store",
-        credentials: "include",
-        method: "GET",
-      }
-    );
+    const id = await userId();
+    setId(id);
+    const response = await fetch(BASE_URL + `/api/users/${id}`, {
+      cache: "no-store",
+      credentials: "include",
+      method: "GET",
+    });
     const { userDetail } = await response.json();
     console.log(userDetail[0]);
     setData(userDetail[0]);
     setOriginalData(JSON.parse(JSON.stringify(userDetail[0])));
     setLoading(false);
-    setId("64bc166577e7230b379908d5");
   };
 
   const handleChange = (e, name) => {
@@ -105,7 +101,7 @@ const page = () => {
   const handleEdit = async () => {
     setEdit((prev) => !prev);
     if (edit && _.isEqual(data, originalData) == false) {
-      const response = await fetch(BASE_URL + "/api/users/" + id, {
+      const response = await fetch(BASE_URL + `/api/users/${id}`, {
         cache: "no-store",
         credentials: "include",
         method: "PUT",

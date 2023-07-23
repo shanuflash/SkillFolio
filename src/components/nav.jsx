@@ -9,6 +9,7 @@ const nav = async () => {
   const handleLogout = async () => {
     "use server";
     cookies().set("token", null);
+    cookies().set("user", null);
     redirect("/");
   };
 
