@@ -1,43 +1,46 @@
 import { NextResponse } from "next/server";
+import { jwtVerifier } from "./app/api/utils/jwt";
 
 export async function middleware(req) {
   const res = NextResponse.next();
-  // const pathname = req.nextUrl.pathname;
-
-  // try {
-  //   const token = req.cookies.get("token")?.value;
-  //   if (!token) {
-  //     // return res.status(401).json({ message: "Unauthorized" });
+  const user = req.cookies.get("user")?.value || {};
+  // const regex = /api\/users\/(.*)/;
+  // const id = regex.exec(req.nextUrl.pathname)[1];
+  // if (id && (req.method === "PUT" || req.method === "POST")) {
+  //   if (user !== id) {
+  //     return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
   //   }
-  //   const verified = jwtVerify(token);
-  //   console.log(verified);
-  //   if (!verified) {
-  //     return NextResponse.redirect(new URL("/login", req.url));
-  //     // return res.status(401).json({ message: "Unauthorized" });
-  //   }
-  //   // req.user = verified;
-  // } catch (error) {
-  //   console.log(error);
   // }
 
-  // if (!token && (pathname === "/" || pathname === "/profile")) {
-  //   return NextResponse.redirect(new URL("/login", req.url));
-  // }
-  // if (token && (pathname === "/login" || pathname === "/signup")) {
-  //   return NextResponse.redirect(new URL("/", req.url));
-  // }
-  // const response = await fetch("http://localhost:3000/api/verify", {
-  //   method: "POST",
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //   },
-  //   body: token,
-  // });
-  // const data = await response.json();
-  // if (data.message === "Token is valid") {
-  //   return res;
-  // } else {
-  //   return NextResponse.redirect(new URL("/login", req.url));
-  // }
+  // profile page token verification
+  if (req.nextUrl.pathname === "/profile") {
+    try {
+      const token = req.cookies.get("token")?.value;
+      if (!token) {
+        return NextResponse.redirect(new URL("/login", req.url));
+      }
+      const verified = jwtVerifier(token);
+      if (!verified) {
+        console.log("Unauthorized");
+        req.cookies.set("token", null);
+        return NextResponse.redirect(new URL("/login", req.url));
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  // login page token verification
+  if (req.nextUrl.pathname === "/login") {
+    try {
+      const token = req.cookies.get("token")?.value;
+      if (token) {
+        return NextResponse.redirect(new URL("/profile", req.url));
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return res;
 }

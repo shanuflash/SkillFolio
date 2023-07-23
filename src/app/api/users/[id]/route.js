@@ -4,6 +4,7 @@ import dbConnection from "../../utils/db";
 import { v2 as cloudinary } from "cloudinary";
 import fs from "fs";
 import { writeFile } from "fs/promises";
+import { cookies } from "next/headers";
 
 dbConnection(process.env.NEXT_PUBLIC_MONGO_URL);
 cloudinary.config({
@@ -12,6 +13,14 @@ cloudinary.config({
   api_secret: process.env.NEXT_PUBLIC_CLOUD_API_SECRET,
   secure: true,
 });
+
+const userVerify = (id, NextResponse) => {
+  const { value: user } = cookies().get("user") || {};
+  if (user !== id) {
+    console.log("Unauthorized");
+    return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+  }
+};
 
 // get user
 export async function GET(req, { params }) {
@@ -30,6 +39,7 @@ export async function GET(req, { params }) {
 // update user
 export async function PUT(req, { params }) {
   const id = params.id;
+  // userVerify(id);
   const data = await req.json();
   try {
     const userDetail = await UserDetails.findByIdAndUpdate({ _id: id }, data, {
@@ -43,7 +53,7 @@ export async function PUT(req, { params }) {
       { status: 200 }
     );
   } catch (error) {
-    next(error);
+    return NextResponse.json({ message: error.message }, { status: 500 });
   }
 }
 

@@ -20,7 +20,7 @@ export async function POST(req, res) {
     if (!isMatch) {
       throw new badRequest("Password is not correct");
     }
-    const token = jwtGenrator({ payload: User._id });
+    const token = await jwtGenrator({ payload: User._id });
     const response = NextResponse.json(
       { message: "User Found" },
       { status: 200 }
