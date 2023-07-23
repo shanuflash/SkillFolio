@@ -27,12 +27,44 @@ const page = () => {
   }, [photo]);
 
   const uploadImg = async () => {
-    console.log("img");
-    setData((prev) => ({
-      ...prev,
-      photo: `https://gjzbafqybpgajdmjgabg.supabase.co/storage/v1/object/public/images/${id}.png`,
-    }));
+    const formData = new FormData();
+    formData.append("file", photo);
+    const response = await fetch(
+      BASE_URL + "/api/users/64bc166577e7230b379908d5",
+      {
+        cache: "no-store",
+        credentials: "include",
+        method: "POST",
+        body: formData,
+      }
+    );
+    const { message, secure_url } = (await response.json()) || {};
+    if (secure_url) {
+      setData((prev) => ({
+        ...prev,
+        photo: secure_url,
+      }));
+    }
+    console.log(message);
   };
+
+  // const uploadImg = async () => {
+  //   const formData = new FormData();
+  //   formData.append("file", photo);
+  //   formData.append("upload_preset", "profile");
+  //   const response = await fetch(
+  //     "https://api.cloudinary.com/v1_1/duvnd0paq/image/upload",
+  //     {
+  //       method: "POST",
+  //       body: formData,
+  //     }
+  //   );
+  //   const { secure_url } = await response.json();
+  //   setData((prev) => ({
+  //     ...prev,
+  //     photo: secure_url,
+  //   }));
+  // };
 
   const handleData = async () => {
     const response = await fetch(
@@ -79,6 +111,8 @@ const page = () => {
         method: "PUT",
         body: JSON.stringify(data),
       });
+      const { message } = await response.json();
+      console.log(message);
       setOriginalData(JSON.parse(JSON.stringify(data)));
     }
   };
