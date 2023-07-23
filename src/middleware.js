@@ -19,10 +19,9 @@ export async function middleware(req) {
       if (!token) {
         return NextResponse.redirect(new URL("/login", req.url));
       }
-      const verified = jwtVerifier(token);
-      if (!verified) {
-        console.log("Unauthorized");
-        req.cookies.set("token", null);
+      const { payload } = await jwtVerifier(token);
+      if (user !== payload.user) {
+        res.cookie("token", null);
         return NextResponse.redirect(new URL("/login", req.url));
       }
     } catch (error) {

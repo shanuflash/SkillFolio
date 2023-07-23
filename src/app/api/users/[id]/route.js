@@ -39,7 +39,6 @@ export async function GET(req, { params }) {
 // update user
 export async function PUT(req, { params }) {
   const id = params.id;
-  // userVerify(id);
   const data = await req.json();
   try {
     const userDetail = await UserDetails.findByIdAndUpdate({ _id: id }, data, {
