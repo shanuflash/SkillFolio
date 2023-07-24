@@ -2,27 +2,33 @@
   display: flex;
   /* justify-content: center; */
   flex-wrap: wrap;
-  gap: 1rem;
-  padding: 1rem;
+  gap: 3rem;
+  padding: 2rem 3rem  ;
 }
 
 .card {
+  width: 15vw;
+  height: 45vh;
   display: flex;
+  align-items: center;
+  justify-content: center;
   flex-direction: column;
   background-color: #11232e;
-  max-width: min-content;
-  height: auto;
+  /* max-width: min-content; */
+  /* height: auto; */
 }
 
 .card > .content {
   display: flex;
   flex-direction: column;
-  padding: 1rem;
+  align-items: center;
+  padding: 0.5rem;
   gap: 0.5rem;
 }
 
 .card > img {
-  max-height: 200px;
-  border-radius: 0.5rem 0.5rem 0 0;
-  object-fit: contain;
+  width: 200px;
+  height: 220;
+  border-radius: 1rem;
+  padding: 0.5rem;
 }
