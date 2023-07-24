@@ -80,6 +80,7 @@ const UserDetailSchema = mongoose.Schema(
       type: mongoose.Types.ObjectId,
       required: true,
       ref: "User",
+      // unique: true,
     },
     name: {
       type: String,

@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { UserDetails } from "../../utils/schema";
 import dbConnection from "../../utils/db";
+import { badRequest } from "../../utils/reqError";
 
 dbConnection(process.env.NEXT_PUBLIC_MONGO_URL);
 
@@ -8,8 +9,7 @@ dbConnection(process.env.NEXT_PUBLIC_MONGO_URL);
 export async function GET(req, { params }) {
   const id = params.id;
   try {
-    const userDetail = await UserDetails.find({ _id: id });
-    console.log(userDetail);
+    const userDetail = await UserDetails.findOne({ _id: id });
     if (userDetail.length === 0) {
       return NextResponse.json({ message: "User not found" }, { status: 404 });
     }
@@ -42,6 +42,7 @@ export async function PUT(req, { params }) {
 export async function POST(req, { params }) {
   const id = params.id;
   const data = {
+    _id: id,
     user: id,
     name: "your name",
     designation: "your designation",
