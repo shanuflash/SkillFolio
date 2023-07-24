@@ -30,7 +30,7 @@ const page = () => {
   const uploadImg = async () => {
     const formData = new FormData();
     formData.append("file", photo);
-    const response = await fetch(BASE_URL + `/api/users/${id}`, {
+    const response = await fetch(BASE_URL + `/api/users/image/${id}`, {
       cache: "no-store",
       credentials: "include",
       method: "POST",
@@ -72,12 +72,21 @@ const page = () => {
       credentials: "include",
       method: "GET",
     });
-    const { userDetail } = await response.json();
-    console.log(userDetail[0]);
-    setData(userDetail[0]);
-    setOriginalData(JSON.parse(JSON.stringify(userDetail[0])));
+    var res = await response.json();
+    if (res.message == "User not found") {
+      const response = await fetch(BASE_URL + `/api/users/${id}`, {
+        cache: "no-store",
+        credentials: "include",
+        method: "POST",
+      });
+      res = await response.json();
+    }
+    setData(res.userDetail);
+    setOriginalData(JSON.parse(JSON.stringify(res.userDetail)));
     setLoading(false);
   };
+
+  //    "message": "UserDetails validation failed: user: Path `user` is required., name: Path `name` is required., designation: Path `designation` is required., description: Path `description` is required., address: Path `address` is required., phone: Path `phone` is required."
 
   const handleChange = (e, name) => {
     setData((prev) => ({ ...prev, [name]: e.target.innerText }));

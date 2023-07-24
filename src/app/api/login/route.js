@@ -25,10 +25,6 @@ export async function POST(req, res) {
       { message: "User Found" },
       { status: 200 }
     );
-    response.cookies.set("user", User._id, {
-      httpOnly: true,
-      maxAge: 1000 * 60 * 60 * 24,
-    });
     response.cookies.set("token", token, {
       httpOnly: true,
       maxAge: 1000 * 60 * 60 * 24,

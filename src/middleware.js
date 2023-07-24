@@ -3,7 +3,6 @@ import { jwtVerifier } from "./app/api/utils/jwt";
 
 export async function middleware(req) {
   const res = NextResponse.next();
-  const user = req.cookies.get("user")?.value || {};
   // const regex = /api\/users\/(.*)/;
   // const id = regex.exec(req.nextUrl.pathname)[1];
   // if (id && (req.method === "PUT" || req.method === "POST")) {
@@ -20,7 +19,7 @@ export async function middleware(req) {
         return NextResponse.redirect(new URL("/login", req.url));
       }
       const { payload } = await jwtVerifier(token);
-      if (user !== payload.user) {
+      if (!payload) {
         res.cookie("token", null);
         return NextResponse.redirect(new URL("/login", req.url));
       }

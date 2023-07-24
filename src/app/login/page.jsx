@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 import { BASE_URL } from "@/config";
 
 const Login = () => {
-  console.log(BASE_URL);
   const router = useRouter();
   const [credentials, setCredentials] = useState({
     Email: "",
@@ -23,7 +22,6 @@ const Login = () => {
       }),
     });
     const data = await response.json();
-    console.log(data);
     if (data.message == "User Found") {
       router.push("/profile");
     }

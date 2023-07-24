@@ -12,16 +12,17 @@ const Home = async () => {
   return (
     <div className={styles.main}>
       {data?.map((student) => {
-        return (
-          <Link href={"profile/" + student.user}>
-            <div className={styles.card}>
-              <img src={student.img} alt="" />
-              <div className={styles.content}>
-                <div className={styles.title}>{student?.name}</div>
+        if (student.name)
+          return (
+            <Link href={"profile/" + student.user}>
+              <div className={styles.card}>
+                <img src={student.img} alt="" />
+                <div className={styles.content}>
+                  <div className={styles.title}>{student?.name}</div>
+                </div>
               </div>
-            </div>
-          </Link>
-        );
+            </Link>
+          );
       })}
     </div>
   );

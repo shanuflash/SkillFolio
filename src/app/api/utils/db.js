@@ -1,9 +1,9 @@
-import mongoose from "mongoose";
+import { connect, connection } from "mongoose";
 
 const dbConnection = (URL) => {
   try {
-    mongoose.connect(URL);
-    mongoose.connection.on("connected", () => {
+    connect(URL);
+    connection.on("connected", () => {
       console.log("MongoDB connection established successfully");
     });
   } catch (error) {
