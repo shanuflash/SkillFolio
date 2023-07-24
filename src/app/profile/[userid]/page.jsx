@@ -9,8 +9,9 @@ const page = async ({ params }) => {
     credentials: "include",
     method: "GET",
   });
-  const { userDetail: [data] = [] } = await response.json();
-  if (!data) {
+  const { userDetail } = await response.json();
+
+  if (!userDetail) {
     return <div>Student not found</div>;
   }
 
@@ -21,19 +22,19 @@ const page = async ({ params }) => {
       </div>
       <div className={styles.head}>
         <div className={styles.photo}>
-          <img src={data?.photo} alt="profile picture" />
+          <img src={userDetail?.photo} alt="profile picture" />
         </div>
         <div className={styles.content}>
           <div className={styles.name}>
-            {data?.name}{" "}
-            <span className={styles.profession}>{data?.designation}</span>
+            {userDetail?.name}{" "}
+            <span className={styles.profession}>{userDetail?.designation}</span>
           </div>
-          <div className={styles.description}>{data?.description}</div>
+          <div className={styles.description}>{userDetail?.description}</div>
           <div className={styles.contact}>
-            <div className={styles.item}>{data?.address}</div>
-            <div className={styles.item}>Phone: {data?.phone}</div>
-            <div className={styles.item}>Email: {data?.email}</div>
-            <div className={styles.item}>Date of Birth: {data?.dob}</div>
+            <div className={styles.item}>{userDetail?.address}</div>
+            <div className={styles.item}>Phone: {userDetail?.phone}</div>
+            <div className={styles.item}>Email: {userDetail?.email}</div>
+            <div className={styles.item}>Date of Birth: {userDetail?.dob}</div>
           </div>
         </div>
       </div>
@@ -54,13 +55,14 @@ const page = async ({ params }) => {
               </svg>
               <a
                 href={
-                  data?.socials?.linkedin
-                    ? "https://www.linkedin.com/in/" + data?.socials.linkedin
+                  userDetail?.socials?.linkedin
+                    ? "https://www.linkedin.com/in/" +
+                      userDetail?.socials?.linkedin
                     : null
                 }
                 target="_blank"
               >
-                {data?.socials.linkedin || "Not Provided"}
+                {userDetail?.socials?.linkedin || "Not Provided"}
               </a>
             </div>
             <div className={styles.item}>
@@ -75,22 +77,22 @@ const page = async ({ params }) => {
               </svg>
               <a
                 href={
-                  data?.socials.github
-                    ? "https://github.com/" + data?.socials.github
+                  userDetail?.socials?.github
+                    ? "https://github.com/" + userDetail?.socials?.github
                     : null
                 }
                 target="_blank"
               >
-                {data?.socials.github || "Not Provided"}
+                {userDetail?.socials?.github || "Not Provided"}
               </a>
             </div>
           </div>
           <div className={styles.section}>
             <div className={styles.title}>Education</div>
-            {data?.education?.length == 0 && (
+            {userDetail?.education?.length == 0 && (
               <div className={styles.empty}>No education found!</div>
             )}
-            {data?.education.map((item) => (
+            {userDetail?.education.map((item) => (
               <div className={styles.item}>
                 <div className={styles.name}>{item.name}</div>
                 <div className={styles.description}>{item.description}</div>
@@ -99,10 +101,10 @@ const page = async ({ params }) => {
           </div>
           <div className={styles.section}>
             <div className={styles.title}>Skills</div>
-            {data?.skills?.length == 0 && (
+            {userDetail?.skills?.length == 0 && (
               <div className={styles.empty}>No skills found!</div>
             )}
-            {data?.skills.map((item) => (
+            {userDetail?.skills.map((item) => (
               <div className={styles["skill-item-card"]}>{item}</div>
             ))}
           </div>
@@ -110,10 +112,10 @@ const page = async ({ params }) => {
         <div className={styles.right}>
           <div className={`${styles.section} ${styles.projects}`}>
             <div className={styles.title}>Projects</div>
-            {data?.projects?.length == 0 && (
+            {userDetail?.projects?.length == 0 && (
               <div className={styles.empty}>No projects found!</div>
             )}
-            {data?.projects.map((item) => (
+            {userDetail?.projects?.map((item) => (
               <div className={styles.item}>
                 <div className={styles.name}>{item.name}</div>
                 <div className={styles.description}>{item.description}</div>
@@ -128,10 +130,10 @@ const page = async ({ params }) => {
           {}
           <div className={`${styles.section} ${styles.experience}`}>
             <div className={styles.title}>Experience</div>
-            {data?.experience?.length == 0 && (
+            {userDetail?.experience?.length == 0 && (
               <div className={styles.empty}>No experience found!</div>
             )}
-            {data?.experience.map((item) => (
+            {userDetail?.experience?.map((item) => (
               <div className={styles.item}>
                 <div className={styles.name}>{item.name}</div>
                 <div className={styles.description}>{item.description}</div>
