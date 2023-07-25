@@ -9,7 +9,7 @@ dbConnection(process.env.NEXT_PUBLIC_MONGO_URL);
 export async function GET(req, { params }) {
   const id = params.id;
   try {
-    const userDetail = await UserDetails.findOne({ _id: id });
+    const userDetail = (await UserDetails.findOne({ _id: id })) || [];
     if (userDetail.length === 0) {
       return NextResponse.json({ message: "User not found" }, { status: 404 });
     }
@@ -64,6 +64,7 @@ export async function POST(req, { params }) {
   };
   try {
     const userDetail = await UserDetails.create(data);
+    console.log(userDetail);
     return NextResponse.json({ userDetail }, { status: 200 });
   } catch (error) {
     return NextResponse.json({ message: error.message }, { status: 500 });

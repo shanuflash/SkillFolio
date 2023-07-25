@@ -122,7 +122,7 @@ const UserDetailSchema = mongoose.Schema(
       message: "Skills is required",
     },
     experience: [ExperienceSchema],
-    project: [ProjectSchema],
+    projects: [ProjectSchema],
     photo: {
       type: String,
       required: true,
