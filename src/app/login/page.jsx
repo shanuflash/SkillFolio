@@ -23,11 +23,10 @@ const Login = () => {
       }),
     });
     const data = await response.json();
-    console.log(response.status);
     if (response.status > 399 && response.status < 499) {
-      toast.error(data?.message);
+      toast.error(data?.message, { autoClose: 3000 });
     } else {
-      toast(data?.message);
+      toast(data?.message, { autoClose: 1000 });
       router.push("/profile");
       router.refresh();
     }

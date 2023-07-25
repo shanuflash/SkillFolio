@@ -247,7 +247,7 @@ const page = () => {
               href={
                 edit
                   ? null
-                  : "https://www.linkedin.com/in/" + data?.socials?.linkedin
+                  : "https://www.linkedin.com/in/" + data?.socials[0]?.linkedin
               }
               className={styles.item}
             >
@@ -263,7 +263,7 @@ const page = () => {
               <span
                 contentEditable={edit}
                 dangerouslySetInnerHTML={{
-                  __html: data?.socials?.linkedin || "your linkedin",
+                  __html: data?.socials[0]?.linkedin || "your linkedin",
                 }}
                 onBlur={(e) => handleChangeObj(e, "socials.linkedin")}
               />
@@ -271,9 +271,7 @@ const page = () => {
             <a
               target="_blank"
               href={
-                edit
-                  ? null
-                  : "https://www.linkedin.com/in/" + data?.socials?.github
+                edit ? null : "https://github.com/" + data?.socials[0]?.github
               }
               className={styles.item}
             >
@@ -289,7 +287,7 @@ const page = () => {
               <span
                 contentEditable={edit}
                 dangerouslySetInnerHTML={{
-                  __html: data?.socials?.github || "your github",
+                  __html: data?.socials[0]?.github || "your github",
                 }}
                 onBlur={(e) => handleChangeObj(e, "socials.github")}
               />

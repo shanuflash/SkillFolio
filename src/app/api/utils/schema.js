@@ -14,12 +14,12 @@ const SocialSchema = mongoose.Schema({
   },
   linkedin: {
     type: String,
-
+    required: true,
     message: "Linkedin is required",
   },
   github: {
     type: String,
-
+    required: true,
     message: "Github is required",
   },
 });
@@ -129,7 +129,7 @@ const UserDetailSchema = mongoose.Schema(
       required: true,
       message: "Date of birth is required",
     },
-    social: SocialSchema,
+    socials: SocialSchema,
     education: [EducationSchema],
     skills: {
       type: [String],

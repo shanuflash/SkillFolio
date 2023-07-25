@@ -27,12 +27,9 @@ export async function PUT(req, { params }) {
       new: true,
     });
     if (!userDetail) {
-      return NextResponse.json("User not found", {status: 400});
+      return NextResponse.json("User not found", { status: 400 });
     }
-    return NextResponse.json(
-      { message: "Details updated" },
-      { status: 200 }
-    );
+    return NextResponse.json({ message: "Details updated" }, { status: 200 });
   } catch (error) {
     return NextResponse.json({ message: error.message }, { status: 500 });
   }
