@@ -34,6 +34,15 @@ const section = ({
           ],
         }));
         break;
+      case "certificates":
+        setData((prev) => ({
+          ...prev,
+          certificates: [
+            ...prev.certificates,
+            { name: "certificate name", url: "certificate url" },
+          ],
+        }));
+        break;
       case "education":
         setData((prev) => ({
           ...prev,

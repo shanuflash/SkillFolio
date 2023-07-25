@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import { UserDetails } from "../../utils/schema";
 import dbConnection from "../../utils/db";
-import { badRequest } from "../../utils/reqError";
 
 dbConnection(process.env.NEXT_PUBLIC_MONGO_URL);
 
@@ -28,10 +27,10 @@ export async function PUT(req, { params }) {
       new: true,
     });
     if (!userDetail) {
-      throw new badRequest("User not found");
+      return NextResponse.json("User not found", {status: 400});
     }
     return NextResponse.json(
-      { message: "User updated successfully" },
+      { message: "Details updated" },
       { status: 200 }
     );
   } catch (error) {
@@ -59,6 +58,7 @@ export async function POST(req, { params }) {
     skills: [],
     experience: [],
     projects: [],
+    certificates: [],
     photo:
       "https://res.cloudinary.com/duvnd0paq/image/upload/v1690172286/profile/f1fyang6vzvzjjx2uyn6.svg",
   };

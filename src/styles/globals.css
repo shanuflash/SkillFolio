@@ -75,8 +75,9 @@ button {
 
 input {
   width: 100%;
-  background-color: var(--primary);
+  background-color: var(--primary) !important;
   font-size: 1rem;
+  color: white;
   border: 1px solid whitesmoke;
   padding: 0.5rem 1rem;
   border-radius: 0.5rem;

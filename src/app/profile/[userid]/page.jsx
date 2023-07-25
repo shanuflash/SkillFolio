@@ -140,6 +140,18 @@ const page = async ({ params }) => {
               </div>
             ))}
           </div>
+          <div className={`${styles.section} ${styles.certificates}`}>
+            <div className={styles.title}>certificates</div>
+            {userDetail?.certificates?.length == 0 && (
+              <div className={styles.empty}>No certificates found!</div>
+            )}
+            {userDetail?.certificates?.map((item) => (
+              <div className={styles.item}>
+                <div className={styles.name}>{item.name}</div>
+                <div className={styles.description}>{item.description}</div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>

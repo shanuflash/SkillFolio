@@ -14,7 +14,7 @@ export async function POST(req) {
         { status: 400 }
       );
     }
-    const User = await authUser.findOne({ email: Email });
+    const User = await authUser.findOne({ email: Email.toLowerCase() });
     if (!User) {
       return NextResponse.json({ message: "User not found" }, { status: 404 });
     }
