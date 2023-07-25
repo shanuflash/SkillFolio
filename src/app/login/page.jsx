@@ -40,7 +40,6 @@ const Login = () => {
             <input
               name="email"
               type="email"
-              className={`${styles.input} ${styles["input-misc"]}`}
               onChange={(e) =>
                 setCredentials({ ...credentials, Email: e.target.value })
               }
@@ -52,7 +51,6 @@ const Login = () => {
             <input
               name="password"
               type="password"
-              className={`${styles.input} ${styles["input-misc"]}`}
               onChange={(e) =>
                 setCredentials({ ...credentials, Password: e.target.value })
               }

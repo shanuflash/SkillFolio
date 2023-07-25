@@ -324,6 +324,11 @@ const page = () => {
             data={data?.experience}
             {...{ setData, handleChangeObjIndex, handleDelete, edit }}
           />
+          <Section
+            name="certificates"
+            data={data?.certificates}
+            {...{ setData, handleChangeObjIndex, handleDelete, edit }}
+          />
         </div>
       </div>
       <button onClick={() => handleEdit()} className={styles.float}>

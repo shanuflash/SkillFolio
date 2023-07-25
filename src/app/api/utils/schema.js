@@ -74,6 +74,21 @@ const ProjectSchema = mongoose.Schema([
   },
 ]);
 
+const CertificateSchema = mongoose.Schema([
+  {
+    name: {
+      type: String,
+      required: true,
+      message: "Certificate name is required",
+    },
+    url: {
+      type: String,
+      required: true,
+      message: "Certificate is required",
+    },
+  },
+]);
+
 const UserDetailSchema = mongoose.Schema(
   {
     user: {
@@ -123,6 +138,7 @@ const UserDetailSchema = mongoose.Schema(
     },
     experience: [ExperienceSchema],
     projects: [ProjectSchema],
+    certificates: [CertificateSchema],
     photo: {
       type: String,
       required: true,
@@ -140,6 +156,7 @@ const User = new mongoose.Schema(
       type: String,
       required: true,
       unique: true,
+      lowercase: true,
       validator: {
         validate: (value) => validator.isEmail(value),
         message: "Email is not valid",

@@ -12,7 +12,7 @@ export async function POST(req, res) {
     if (!Email || !Password) {
       throw new badRequest("Email or Password is missing");
     }
-    const User = await authUser.findOne({ email: Email });
+    const User = await authUser.findOne({ email: Email.toLowerCase() });
     if (!User) {
       throw new badRequest("User not found");
     }
