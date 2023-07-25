@@ -3,7 +3,7 @@
   /* justify-content: center; */
   flex-wrap: wrap;
   gap: 3rem;
-  padding: 2rem 3rem  ;
+  padding: 2rem 3rem;
 }
 
 .card {
@@ -13,7 +13,7 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  background-color: #11232e;
+  background-color: #170a33;
   /* max-width: min-content; */
   /* height: auto; */
 }

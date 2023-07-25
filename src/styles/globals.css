@@ -2,9 +2,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap");
 
 :root {
-  --bg: #0c1921;
-  --ascent: #00b4d8;
-  --toastify-color-info: #00b4d8;
+  --bg: #040109;
+  --ascent: #5e2bd4;
+  --primary: #4c3dbd;
+  --secondary: #141032;
 
   font-family: "Montserrat", sans-serif;
   line-height: 1.5;
@@ -49,6 +50,7 @@ input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
+
 input[type="number"] {
   -moz-appearance: textfield;
 }
@@ -59,21 +61,28 @@ a {
 }
 
 button {
-  background-color: rgb(16, 35, 46);
-  font-size: 1rem;
-  border: none;
-  padding: 0.5rem 1rem;
+  background-color: #3903b8;
+  color: #fff;
   border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  font-weight: 400;
+  cursor: pointer;
+  border: none;
   text-align: center;
   display: inline-block;
-  cursor: pointer;
 }
 
 input {
   width: 100%;
-  background-color: rgb(16, 35, 46);
+  background-color: var(--primary);
   font-size: 1rem;
   border: 1px solid whitesmoke;
   padding: 0.5rem 1rem;
   border-radius: 0.5rem;
+}
+
+::placeholder {
+  color: white;
+  opacity: 1;
 }

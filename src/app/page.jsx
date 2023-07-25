@@ -5,10 +5,11 @@ import Link from "next/link";
 import { BASE_URL } from "@/config";
 import style from "@/styles/search.module.css";
 import { useEffect, useState } from "react";
+import Loading from "./loading";
 
 const Home = () => {
-  const [data, setData] = useState();
-
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
   const handleFetch = async (formData) => {
     const Searchname = formData?.get("name") || "";
     const response = await fetch(BASE_URL + "/api/users?name=" + Searchname, {
@@ -18,6 +19,7 @@ const Home = () => {
     }).then((res) => res.json());
     const { userDetail } = await response;
     setData(userDetail);
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -38,20 +40,26 @@ const Home = () => {
           Search
         </button>
       </form>
-      {data?.map((student) => {
-        if (student.name !== "your name") {
-          return (
-            <Link href={"profile/" + student.user} key={student.id}>
-              <div className={styles.card}>
-                <img src={student.photo} alt="student Image" />
-                <div className={styles.content}>
-                  <div className={styles.title}>{student?.name}</div>
-                </div>
-              </div>
-            </Link>
-          );
-        }
-      })}
+      {loading ? (
+        <Loading />
+      ) : (
+        <>
+          {data?.map((student) => {
+            if (student.name !== "your name") {
+              return (
+                <Link href={"profile/" + student.user} key={student.id}>
+                  <div className={styles.card}>
+                    <img src={student.photo} alt="student Image" />
+                    <div className={styles.content}>
+                      <div className={styles.title}>{student?.name}</div>
+                    </div>
+                  </div>
+                </Link>
+              );
+            }
+          })}
+        </>
+      )}
     </div>
   );
 };

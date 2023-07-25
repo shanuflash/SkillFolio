@@ -24,6 +24,7 @@ const Login = () => {
     const data = await response.json();
     if (data.message == "User Found") {
       router.push("/profile");
+      router.refresh();
     }
   };
 

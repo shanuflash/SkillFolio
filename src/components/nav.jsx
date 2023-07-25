@@ -5,11 +5,10 @@ import Link from "next/link";
 
 const nav = async () => {
   const { value } = cookies().get("token") || {};
-  //switch to client component
   const handleLogout = async () => {
     "use server";
     cookies().set("token", null);
-    redirect("/");
+    redirect("/login");
   };
 
   return (

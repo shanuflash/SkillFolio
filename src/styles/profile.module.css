@@ -185,7 +185,7 @@
   right: 2rem;
   z-index: 100;
   font-size: 1.25rem;
-  background-color: #11232e;
+  background-color: #170a33;
   border: 1px solid #fff;
   padding: 0.8rem 1.5rem;
   border-radius: 1rem;
@@ -196,7 +196,7 @@
   outline: 1px solid #fff;
   padding: 0 0.4rem;
   border-radius: 0.3rem;
-  background-color: #11232e;
+  background-color: var(--secondary);
 }
 
 .loading {

@@ -4,7 +4,6 @@
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
-  background-color: #11232e;
 }
 
 .logo {
@@ -22,7 +21,7 @@
 }
 
 .profile {
-  background-color: #0c1921;
+  background-color: #5e2bd4;
   color: #fff;
   border: none;
   border-radius: 0.5rem;
@@ -33,9 +32,12 @@
 }
 
 .logout {
-  cursor: pointer;
-  border: none;
-  outline: none;
   background: none;
+  color: #fff;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
   font-size: 1rem;
+  font-weight: 400;
+  cursor: pointer;
 }

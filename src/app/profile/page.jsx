@@ -194,7 +194,7 @@ const page = () => {
                 __html: data?.name || "your name",
               }}
               onBlur={(e) => handleChange(e, "name")}
-            />
+            />{" "}
             <span
               className={styles.profession}
               contentEditable={edit}

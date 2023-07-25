@@ -1,6 +1,6 @@
 .search {
   width: 100vw;
-  height: 10vh;
+  /* height: 10vh; */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -10,15 +10,15 @@
   width: 50vw;
   height: 6vh;
   color: white;
-  border-color: white;
-  border-radius: 0.5rem 0 0 0.5rem;
+  border: none;
+  border-radius: 0.5rem 0 0 0.5rem !important;
 }
+
+
 
 .searchbtn {
   width: 10vw;
   height: 6vh;
-  color: white;
-  border: 1px solid white;
-  border-radius: 0 0.5rem 0.5rem 0;
-  
+  border: none;
+  border-radius: 0 0.5rem 0.5rem 0 !important;
 }
