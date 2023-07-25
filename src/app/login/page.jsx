@@ -3,6 +3,7 @@ import styles from "@/styles/login.module.css";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { BASE_URL } from "@/config";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const router = useRouter();
@@ -22,7 +23,11 @@ const Login = () => {
       }),
     });
     const data = await response.json();
-    if (data.message == "User Found") {
+    console.log(response.status);
+    if (response.status > 399 && response.status < 499) {
+      toast.error(data?.message);
+    } else {
+      toast(data?.message);
       router.push("/profile");
       router.refresh();
     }
