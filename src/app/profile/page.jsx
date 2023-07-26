@@ -6,7 +6,8 @@ import _ from "lodash";
 import { BASE_URL } from "@/config";
 import userId from "@/components/userId";
 import { toast } from "react-toastify";
-// import skillData from "@/skillData";
+import skillData from "@/skillData";
+import Select from "react-select";
 // import { sanitize } from "isomorphic-dompurify";
 
 //TODO: add skills, achievements, language
@@ -17,6 +18,7 @@ const page = () => {
   const [id, setId] = useState(-1);
   const [photo, setPhoto] = useState(null);
   const [edit, setEdit] = useState(false);
+  const [skill, setSkill] = useState([]);
 
   useEffect(() => {
     handleData();
@@ -308,17 +310,51 @@ const page = () => {
             data={data?.education}
             {...{ setData, handleChangeObjIndex, handleDelete, edit }}
           />
-          <div className={styles.section}>
+          <div className={`${styles.section} ${styles.skills}`}>
             <div className={styles.title}>Skills</div>
-            {/* <select>
-              {skillData.map((item, i) => {
-                return (
-                  <option key={i} value={i}>
-                    {item}
-                  </option>
-                );
-              })}
-            </select> */}
+            {edit && (
+              <Select
+                options={skillData}
+                defaultValue={data?.skills?.map((item) => ({
+                  value: item,
+                  label: item,
+                }))}
+                isMulti
+                isDisabled={!edit}
+                onChange={(e) => {
+                  setData(
+                    (prev) =>
+                      (prev = {
+                        ...prev,
+                        skills: e.map((item) => item.value),
+                      })
+                  );
+                  // setSkill(e.map((item) => item.value));
+                }}
+                styles={{
+                  control: (baseStyles, state) => ({
+                    ...baseStyles,
+                    backgroundColor: "black",
+                  }),
+                  option: (baseStyles, state) => ({
+                    ...baseStyles,
+                    backgroundColor: "black",
+                  }),
+                  menu: (baseStyles, state) => ({
+                    ...baseStyles,
+                    backgroundColor: "black",
+                  }),
+                  multiValueLabel: (baseStyles, state) => ({
+                    ...baseStyles,
+                    color: "white",
+                  }),
+                  multiValue: (baseStyles, state) => ({
+                    ...baseStyles,
+                    backgroundColor: "#3903b8",
+                  }),
+                }}
+              />
+            )}
             {data?.skills?.length == 0 && (
               <>No skills found! edit profile to add.</>
             )}

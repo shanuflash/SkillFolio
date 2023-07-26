@@ -55,14 +55,14 @@ const page = async ({ params }) => {
               </svg>
               <a
                 href={
-                  userDetail?.socials[0]?.linkedin
+                  userDetail?.socials?.linkedin
                     ? "https://www.linkedin.com/in/" +
-                      userDetail?.socials[0]?.linkedin
+                      userDetail?.socials?.linkedin
                     : null
                 }
                 target="_blank"
               >
-                {userDetail?.socials[0]?.linkedin || "Not Provided"}
+                {userDetail?.socials?.linkedin || "Not Provided"}
               </a>
             </div>
             <div className={styles.item}>
@@ -77,13 +77,13 @@ const page = async ({ params }) => {
               </svg>
               <a
                 href={
-                  userDetail?.socials[0]?.github
-                    ? "https://github.com/" + userDetail?.socials[0]?.github
+                  userDetail?.socials?.github
+                    ? "https://github.com/" + userDetail?.socials?.github
                     : null
                 }
                 target="_blank"
               >
-                {userDetail?.socials[0]?.github || "Not Provided"}
+                {userDetail?.socials?.github || "Not Provided"}
               </a>
             </div>
           </div>

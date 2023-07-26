@@ -229,3 +229,13 @@
     transform: rotate(360deg);
   }
 }
+
+.skills {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.test1 {
+  color: black;
+}
