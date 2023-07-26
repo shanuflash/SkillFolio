@@ -5,9 +5,12 @@ import { useEffect, useState } from "react";
 import _ from "lodash";
 import { BASE_URL } from "@/config";
 import userId from "@/components/userId";
+import { toast } from "react-toastify";
+// import skillData from "@/skillData";
+// import { sanitize } from "isomorphic-dompurify";
 
 //TODO: add check xss
-//TODO: add skills, certification(certificate ID)/achievements, language
+//TODO: add skills, achievements, language
 
 const page = () => {
   const [loading, setLoading] = useState(true);
@@ -54,37 +57,43 @@ const page = () => {
       method: "GET",
     });
     var res = await response.json();
-    if (res.message == "User not found") {
+    if (response.status == 404) {
       const response = await fetch(BASE_URL + `/api/users/${id}`, {
         cache: "no-store",
         credentials: "include",
         method: "POST",
       });
       res = await response.json();
+    } else if (response.status > 499) {
+      toast.error(res.message);
     }
     setData(res.userDetail);
     setOriginalData(JSON.parse(JSON.stringify(res.userDetail)));
     setLoading(false);
   };
 
-  //    "message": "UserDetails validation failed: user: Path `user` is required., name: Path `name` is required., designation: Path `designation` is required., description: Path `description` is required., address: Path `address` is required., phone: Path `phone` is required."
-
   const handleChange = (e, name) => {
-    setData((prev) => ({ ...prev, [name]: e.target.innerText }));
+    setData((prev) => ({
+      ...prev,
+      [name]: e.target.innerText.replace(/(<([^>]+)>)/gi, ""),
+    }));
   };
 
   const handleChangeObj = (e, name) => {
     const key = name.split(".");
     setData((prev) => ({
       ...prev,
-      [key[0]]: { ...prev[key[0]], [key[1]]: e.target.innerText },
+      [key[0]]: {
+        ...prev[key[0]],
+        [key[1]]: e.target.innerText.replace(/(<([^>]+)>)/gi, ""),
+      },
     }));
   };
 
   const handleChangeObjIndex = (e, name, i) => {
     const key = name.split(".");
     const test = data[key[0]];
-    test[i][key[1]] = e.target.innerText;
+    test[i][key[1]] = e.target.innerText.replace(/(<([^>]+)>)/gi, "");
     setData((prev) => ({ ...prev, [key[0]]: test }));
   };
 
@@ -98,8 +107,12 @@ const page = () => {
         body: JSON.stringify(data),
       });
       const { message } = await response.json();
-      console.log(message);
-      setOriginalData(JSON.parse(JSON.stringify(data)));
+      if (response.status == 200) {
+        toast(message);
+        setOriginalData(JSON.parse(JSON.stringify(data)));
+      } else if (response.status > 499) {
+        toast.error(message);
+      }
     }
   };
 
@@ -300,7 +313,15 @@ const page = () => {
           />
           <div className={styles.section}>
             <div className={styles.title}>Skills</div>
-            <input type="text" defaultValue="Work In Progress" />
+            {/* <select>
+              {skillData.map((item, i) => {
+                return (
+                  <option key={i} value={i}>
+                    {item}
+                  </option>
+                );
+              })}
+            </select> */}
             {data?.skills?.length == 0 && (
               <>No skills found! edit profile to add.</>
             )}

@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import validator from "validator";
+import { isEmail } from "validator";
 import bcrypt from "bcryptjs";
 
 const SocialSchema = mongoose.Schema({
@@ -158,7 +158,7 @@ const User = new mongoose.Schema(
       unique: true,
       lowercase: true,
       validator: {
-        validate: (value) => validator.isEmail(value),
+        validate: (value) => isEmail(value),
         message: "Email is not valid",
       },
     },
