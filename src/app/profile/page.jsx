@@ -259,7 +259,7 @@ const page = () => {
               href={
                 edit
                   ? null
-                  : "https://www.linkedin.com/in/" + data?.socials[0]?.linkedin
+                  : "https://www.linkedin.com/in/" + data?.socials?.linkedin
               }
               className={styles.item}
             >
@@ -275,16 +275,14 @@ const page = () => {
               <span
                 contentEditable={edit}
                 dangerouslySetInnerHTML={{
-                  __html: data?.socials[0]?.linkedin || "your linkedin",
+                  __html: data?.socials?.linkedin || "your linkedin",
                 }}
                 onBlur={(e) => handleChangeObj(e, "socials.linkedin")}
               />
             </a>
             <a
               target="_blank"
-              href={
-                edit ? null : "https://github.com/" + data?.socials[0]?.github
-              }
+              href={edit ? null : "https://github.com/" + data?.socials?.github}
               className={styles.item}
             >
               <svg
@@ -299,7 +297,7 @@ const page = () => {
               <span
                 contentEditable={edit}
                 dangerouslySetInnerHTML={{
-                  __html: data?.socials[0]?.github || "your github",
+                  __html: data?.socials?.github || "your github",
                 }}
                 onBlur={(e) => handleChangeObj(e, "socials.github")}
               />
