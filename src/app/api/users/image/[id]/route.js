@@ -29,6 +29,7 @@ export async function POST(req, { params }) {
         return NextResponse.json({ message: error.message }, { status: 500 });
       }
       const { secure_url } = await cloudinary.uploader.upload(path, {
+        public_id: id,
         folder: "profile",
       });
       fs.unlinkSync(path);

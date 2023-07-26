@@ -9,9 +9,7 @@ import { toast } from "react-toastify";
 // import skillData from "@/skillData";
 // import { sanitize } from "isomorphic-dompurify";
 
-//TODO: add check xss
 //TODO: add skills, achievements, language
-
 const page = () => {
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState({});
@@ -28,11 +26,12 @@ const page = () => {
     if (photo) {
       uploadImg();
     }
-  }, [photo]);
+  }, [edit == false]);
 
   const uploadImg = async () => {
     const formData = new FormData();
     formData.append("file", photo);
+    setPhoto(null);
     const response = await fetch(BASE_URL + `/api/users/image/${id}`, {
       cache: "no-store",
       credentials: "include",
