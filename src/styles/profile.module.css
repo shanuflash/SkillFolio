@@ -239,3 +239,10 @@
 .test1 {
   color: black;
 }
+
+.skill-item-card-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 1rem;
+}

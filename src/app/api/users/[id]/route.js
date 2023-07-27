@@ -56,6 +56,7 @@ export async function POST(req, { params }) {
     experience: [],
     projects: [],
     certificates: [],
+    languages: [],
     photo:
       "https://res.cloudinary.com/duvnd0paq/image/upload/v1690172286/profile/f1fyang6vzvzjjx2uyn6.svg",
   };

@@ -109,7 +109,7 @@ const page = () => {
       });
       const { message } = await response.json();
       if (response.status == 200) {
-        toast(message);
+        toast(message, { autoClose: 1500 });
         setOriginalData(JSON.parse(JSON.stringify(data)));
       } else if (response.status > 499) {
         toast.error(message);
@@ -358,11 +358,13 @@ const page = () => {
             {data?.skills?.length == 0 && (
               <>No skills found! edit profile to add.</>
             )}
-            {data?.skills?.map((item, index) => (
-              <div key={index} className={styles["skill-item-card"]}>
-                {item}
-              </div>
-            ))}
+            <div className={styles["skill-item-card-container"]}>
+              {data?.skills?.map((item, index) => (
+                <div key={index} className={styles["skill-item-card"]}>
+                  {item}
+                </div>
+              ))}
+            </div>
           </div>
         </div>
         <div className={styles.right}>
@@ -379,6 +381,11 @@ const page = () => {
           <Section
             name="certificates"
             data={data?.certificates}
+            {...{ setData, handleChangeObjIndex, handleDelete, edit }}
+          />
+          <Section
+            name="languages"
+            data={data?.languages}
             {...{ setData, handleChangeObjIndex, handleDelete, edit }}
           />
         </div>

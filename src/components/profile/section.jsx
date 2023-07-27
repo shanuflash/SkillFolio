@@ -52,6 +52,15 @@ const section = ({
           ],
         }));
         break;
+      case "languages":
+        setData((prev) => ({
+          ...prev,
+          languages: [
+            ...prev.languages,
+            { name: "Languages name", description: "[Read, Write, Speak]" },
+          ],
+        }));
+        break;
 
       default:
         break;

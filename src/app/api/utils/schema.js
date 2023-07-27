@@ -89,6 +89,22 @@ const CertificateSchema = mongoose.Schema([
   },
 ]);
 
+const LanguageSchema = mongoose.Schema([
+  {
+    name: {
+      type: String,
+      required: true,
+      message: "Language name is required",
+    },
+    description: {
+      type: String,
+      // enum: ["Read", "Write", "Speak"],
+      required: true,
+      message: "Language level is required",
+    },
+  },
+]);
+
 const UserDetailSchema = mongoose.Schema(
   {
     user: {
@@ -139,6 +155,7 @@ const UserDetailSchema = mongoose.Schema(
     experience: [ExperienceSchema],
     projects: [ProjectSchema],
     certificates: [CertificateSchema],
+    languages: [LanguageSchema],
     photo: {
       type: String,
       required: true,
