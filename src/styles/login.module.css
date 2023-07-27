@@ -123,7 +123,7 @@
   flex-direction: row !important;
 }
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 768px) {
   .Login {
     flex-direction: column;
   }

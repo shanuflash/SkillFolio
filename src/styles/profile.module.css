@@ -36,7 +36,6 @@
 }
 
 .photo img {
-  /* height: 300px; */
   aspect-ratio: 0.78;
   border-radius: 2rem;
 }
@@ -109,7 +108,6 @@
 }
 
 .left {
-  /* background-color: rgb(12, 25, 33); */
   width: 35%;
   display: flex;
   flex-direction: column;
@@ -127,7 +125,6 @@
 
 .section {
   display: flex;
-  /* flex-direction: column; */
   flex-wrap: wrap;
   gap: 1rem;
 }
@@ -166,10 +163,6 @@
   display: flex;
   gap: 0.5rem;
 }
-
-/* .section > .item::before {
- todo:todo
-} */
 
 .delete {
   align-self: flex-end;
@@ -245,4 +238,75 @@
   flex-direction: row;
   flex-wrap: wrap;
   gap: 1rem;
+}
+
+@media screen and (max-width: 768px) {
+  .profile {
+    flex-direction: column;
+    padding: 0;
+  }
+
+  .profile > .disclaimer {
+    font-size: 0.7rem;
+    padding-top: 0.8rem;
+  }
+
+  .profile > .head {
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .head > .photo {
+    width: 100%;
+    padding: 0;
+  }
+
+  .photo > img {
+    width: 60%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 0.5rem;
+  }
+
+  .content {
+    width: 100% !important;
+    flex-direction: column;
+    padding: 0 0.8rem;
+    gap: 0.5rem;
+  }
+
+  .content > .name {
+    font-size: 1.8rem;
+    padding: 0;
+  }
+
+  .name > .profession {
+    font-size: 0.8rem;
+    padding: 0;
+  }
+
+  .content > .description {
+    font-size: 0.8rem;
+    text-align: justify;
+    padding: 0;
+  }
+
+  .content > .contact {
+    flex-direction: column;
+    gap: 0.5rem;
+    font-size: 0.8rem;
+    padding: 0;
+  }
+
+  .contact > .item {
+    width: 100%;
+    padding: 0;
+  }
+
+  .container,
+  .left,
+  .right {
+    width: 100%;
+    flex-direction: column;
+  }
 }

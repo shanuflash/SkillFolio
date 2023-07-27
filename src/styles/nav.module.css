@@ -42,7 +42,7 @@
   cursor: pointer;
 }
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 768px) {
   .nav {
     display: flex;
     padding: 0.5rem;

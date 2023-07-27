@@ -152,6 +152,18 @@ const page = async ({ params }) => {
               </div>
             ))}
           </div>
+          <div className={`${styles.section} ${styles.languages}`}>
+            <div className={styles.title}>languages</div>
+            {userDetail?.languages?.length == 0 && (
+              <div className={styles.empty}>No languages found!</div>
+            )}
+            {userDetail?.languages?.map((item) => (
+              <div className={styles.item}>
+                <div className={styles.name}>{item.name}</div>
+                <div className={styles.description}>{item.description}</div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>
