@@ -69,11 +69,11 @@ const section = ({
   return (
     <div className={`${styles.section} ${styles[name.toLowerCase()]}`}>
       <div className={styles.title}>{name}</div>
-      {data?.length == 0 && (
+      {!data || data.length === 0 ? (
         <div className={styles.empty}>
           No {name} found! edit profile to add.
         </div>
-      )}
+      ) : null}
       {data?.map((item, index) => (
         <div className={styles.item} key={index}>
           <span
