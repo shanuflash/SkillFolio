@@ -1,5 +1,5 @@
 .main {
-  display: flex;
+  display: flex !important;
   /* justify-content: center; */
   flex-wrap: wrap;
   gap: 3rem;
@@ -14,8 +14,6 @@
   justify-content: center;
   flex-direction: column;
   background-color: #170a33;
-  /* max-width: min-content; */
-  /* height: auto; */
 }
 
 .card > .content {
@@ -31,4 +29,33 @@
   height: 220;
   border-radius: 1rem;
   padding: 0.5rem;
+}
+
+@media only screen and (max-width: 400px) {
+  .main {
+    display: flex;
+    padding: 0.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+  }
+
+  .card {
+    width: 35vw;
+    height: 20vh;
+    font-size: 0.8rem;
+    display: flex;
+    gap: 0.3rem;
+  }
+
+  .card > .content {
+    padding: 0;
+  }
+
+  .card > img {
+    width: 80%;
+    height: 80%;
+    border-radius: 0.5rem;
+    padding: 0 !important;
+  }
 }

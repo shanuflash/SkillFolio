@@ -41,3 +41,22 @@
   font-weight: 400;
   cursor: pointer;
 }
+
+@media screen and (max-width: 400px) {
+  .nav {
+    display: flex;
+    padding: 0.5rem;
+  }
+
+  .logo {
+    font-size: 1.5rem;
+  }
+
+  .logout {
+    font-size: 0.8rem;
+  }
+
+  .profile {
+    font-size: 0.6rem;
+  }
+}

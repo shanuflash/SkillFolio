@@ -122,3 +122,51 @@
 .Signup {
   flex-direction: row !important;
 }
+
+@media screen and (max-width: 400px) {
+  .Login {
+    flex-direction: column;
+  }
+
+  .left {
+    width: 100vw;
+    padding: 2rem;
+  }
+
+  .right {
+    width: 100vw;
+    padding: 2rem;
+  }
+
+  .container {
+    width: 100vw;
+    padding: 1rem;
+  }
+
+  .logo {
+    font-size: 5vw;
+  }
+
+  .container-text {
+    font-size: 1.2rem;
+  }
+
+  .input-container input {
+    padding: 0.5rem;
+  }
+
+  .input-container label {
+    font-size: 0.7rem;
+  }
+
+  .button-container {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .signup {
+    max-width: 100%;
+    font-size: 0.8rem;
+    padding: 0.5rem 1rem;
+  }
+}
