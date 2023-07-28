@@ -17,3 +17,17 @@ export async function GET(req) {
     return NextResponse.json({ message: error.message }, { status: 500 });
   }
 }
+
+//filter user by skills
+export async function POST(req) {
+  const data = await req.json();
+  try {
+    const userDetail = await UserDetails.find(
+      { skills: { $in: data } },
+      { photo: 1, name: 1, _id: 1 }
+    );
+    return NextResponse.json({ userDetail }, { status: 200 });
+  } catch (error) {
+    return NextResponse.json({ message: error.message }, { status: 500 });
+  }
+}

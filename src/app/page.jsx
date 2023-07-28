@@ -6,11 +6,26 @@ import { BASE_URL } from "@/config";
 import style from "@/styles/search.module.css";
 import { useEffect, useState } from "react";
 import Loading from "./loading";
+import Select from "react-select";
+import skillData from "@/skillData";
 
 const Home = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
-  const handleFetch = async (formData) => {
+  const [filter, setFilter] = useState([]);
+  const handleFilter = async (e) => {
+    const response = await fetch(BASE_URL + "/api/users", {
+      body: JSON.stringify(filter),
+      cache: "no-store",
+      credentials: "include",
+      method: "POST",
+    });
+    const { userDetail } = await response.json();
+    setData(userDetail);
+    setLoading(false);
+  };
+
+  const handleSearch = async (formData) => {
     const Searchname = formData?.get("name") || "";
     const response = await fetch(BASE_URL + "/api/users?name=" + Searchname, {
       cache: "no-store",
@@ -23,18 +38,51 @@ const Home = () => {
   };
 
   useEffect(() => {
-    handleFetch();
+    handleSearch();
   }, []);
 
   return (
     <div className={styles.main}>
-      <form className={style.search} action={handleFetch}>
+      <form className={style.search} action={handleFilter}>
         <input
           className={style.input}
           name="name"
           type="text"
           placeholder="Search name..."
-          onChange={(e) => e.target.value == "" && handleFetch()}
+          onChange={(e) => e.target.value == "" && handleSearch()}
+        />
+        <Select
+          options={skillData}
+          defaultValue={data?.skills?.map((item) => ({
+            value: item,
+            label: item,
+          }))}
+          isMulti
+          onChange={(e) => {
+            setFilter(e.map((item) => item.value));
+          }}
+          styles={{
+            control: (baseStyles, state) => ({
+              ...baseStyles,
+              backgroundColor: "black",
+            }),
+            option: (baseStyles, state) => ({
+              ...baseStyles,
+              backgroundColor: "black",
+            }),
+            menu: (baseStyles, state) => ({
+              ...baseStyles,
+              backgroundColor: "black",
+            }),
+            multiValueLabel: (baseStyles, state) => ({
+              ...baseStyles,
+              color: "white",
+            }),
+            multiValue: (baseStyles, state) => ({
+              ...baseStyles,
+              backgroundColor: "#3903b8",
+            }),
+          }}
         />
         <button type="submit" className={style.searchbtn}>
           Search

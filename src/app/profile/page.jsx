@@ -326,7 +326,6 @@ const page = () => {
                         skills: e.map((item) => item.value),
                       })
                   );
-                  // setSkill(e.map((item) => item.value));
                 }}
                 styles={{
                   control: (baseStyles, state) => ({

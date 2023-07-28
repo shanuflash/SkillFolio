@@ -39,7 +39,7 @@ const section = ({
           ...prev,
           certificates: [
             ...prev.certificates,
-            { name: "certificate name", url: "certificate url" },
+            { name: "certificate name", description: "certificate url" },
           ],
         }));
         break;
@@ -94,18 +94,6 @@ const section = ({
               handleChangeObjIndex(e, `${name}.description`, index)
             }
           />
-          {name == "Projects" && (
-            <a href={edit ? null : item?.link} target="_blank">
-              <span
-                className={styles.link}
-                contentEditable={edit}
-                dangerouslySetInnerHTML={{
-                  __html: item.link || "project link",
-                }}
-                onBlur={(e) => handleChangeObjIndex(e, "projects.link", index)}
-              />
-            </a>
-          )}
           {edit && (
             <button
               className={styles.delete}
