@@ -8,9 +8,7 @@ import userId from "@/components/userId";
 import { toast } from "react-toastify";
 import skillData from "@/skillData";
 import Select from "react-select";
-// import { sanitize } from "isomorphic-dompurify";
 
-//TODO: add skills, achievements, language
 const page = () => {
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState({});
@@ -18,7 +16,6 @@ const page = () => {
   const [id, setId] = useState(-1);
   const [photo, setPhoto] = useState(null);
   const [edit, setEdit] = useState(false);
-  const [skill, setSkill] = useState([]);
 
   useEffect(() => {
     handleData();
