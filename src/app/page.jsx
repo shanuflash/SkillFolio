@@ -44,60 +44,62 @@ const Home = () => {
           placeholder="Search name..."
           onChange={(e) => e.target.value == "" && handleSearch()}
         />
-        <Select
-          options={skillData}
-          defaultValue={
-            data?.skills?.map((item) => ({
-              value: item,
-              label: item,
-            })) || null
-          }
-          isMulti
-          onChange={(e) => {
-            setFilter(e.map((item) => item.value));
-          }}
-          placeholder="Search skills..."
-          styles={{
-            control: (baseStyles, state) => ({
-              ...baseStyles,
-              backgroundColor: "#4c3dbd",
-              width: isMobile ? "20vw" : "20vw",
-              height: isMobile ? "4vh" : "6vh",
-              border: "none",
-              borderRadius: "0",
-            }),
-            option: (baseStyles, state) => ({
-              ...baseStyles,
-              backgroundColor: "black",
-            }),
-            menu: (baseStyles, state) => ({
-              ...baseStyles,
-              backgroundColor: "black",
-            }),
-            multiValueLabel: (baseStyles, state) => ({
-              ...baseStyles,
-              color: "white",
-            }),
-            multiValue: (baseStyles, state) => ({
-              ...baseStyles,
-              backgroundColor: "#3903b8",
-            }),
-            indicatorsContainer: (baseStyles, state) => ({
-              ...baseStyles,
-              backgroundColor: "#3903b8",
-              width: isMobile ? "4vw" : null,
-              height: isMobile ? "4vw" : null,
-            }),
-            indicatorSeparator: (baseStyles, state) => ({
-              ...baseStyles,
-              backgroundColor: "#3903b8",
-            }),
-            placeholder: (baseStyles, state) => ({
-              ...baseStyles,
-              color: "white",
-            }),
-          }}
-        />
+        {!isMobile && (
+          <Select
+            options={skillData}
+            defaultValue={
+              data?.skills?.map((item) => ({
+                value: item,
+                label: item,
+              })) || null
+            }
+            isMulti
+            onChange={(e) => {
+              setFilter(e.map((item) => item.value));
+            }}
+            placeholder="Search skills..."
+            styles={{
+              control: (baseStyles, state) => ({
+                ...baseStyles,
+                backgroundColor: "#4c3dbd",
+                width: isMobile ? "20vw" : "20vw",
+                height: isMobile ? "4vh" : "6vh",
+                border: "none",
+                borderRadius: "0",
+              }),
+              option: (baseStyles, state) => ({
+                ...baseStyles,
+                backgroundColor: "black",
+              }),
+              menu: (baseStyles, state) => ({
+                ...baseStyles,
+                backgroundColor: "black",
+              }),
+              multiValueLabel: (baseStyles, state) => ({
+                ...baseStyles,
+                color: "white",
+              }),
+              multiValue: (baseStyles, state) => ({
+                ...baseStyles,
+                backgroundColor: "#3903b8",
+              }),
+              indicatorsContainer: (baseStyles, state) => ({
+                ...baseStyles,
+                backgroundColor: "#3903b8",
+                width: isMobile ? "4vw" : null,
+                height: isMobile ? "4vw" : null,
+              }),
+              indicatorSeparator: (baseStyles, state) => ({
+                ...baseStyles,
+                backgroundColor: "#3903b8",
+              }),
+              placeholder: (baseStyles, state) => ({
+                ...baseStyles,
+                color: "white",
+              }),
+            }}
+          />
+        )}
         <button type="submit" className={style.searchbtn}>
           Search
         </button>
