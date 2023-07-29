@@ -58,7 +58,7 @@ export async function POST(req, { params }) {
     certificates: [],
     languages: [],
     photo:
-      "https://res.cloudinary.com/duvnd0paq/image/upload/v1690172286/profile/f1fyang6vzvzjjx2uyn6.svg",
+      "https://res.cloudinary.com/duvnd0paq/image/upload/v1690611216/profile/default.svg",
   };
   try {
     const userDetail = await UserDetails.create(data);

@@ -5,14 +5,14 @@ import { authUser } from "../utils/schema.js";
 dbConnection(process.env.NEXT_PUBLIC_MONGO_URL);
 export async function POST(req) {
   try {
-    const { Email, Password } = await req.json();
-    if (!Email || !Password) {
+    const { email, password } = await req.json();
+    if (!email || !password) {
       return NextResponse.json("Email or Password is missing", { status: 400 });
     }
     try {
       await authUser.create({
-        email: Email,
-        password: Password,
+        email: email,
+        password: password,
       });
     } catch (error) {
       console.log(error);
