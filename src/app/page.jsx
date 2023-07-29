@@ -8,12 +8,12 @@ import { useEffect, useState } from "react";
 import Loading from "./loading";
 import Select from "react-select";
 import skillData from "@/skillData";
-import { useMediaQuery } from "react-responsive";
 
 const Home = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState([]);
+  const [isMobile, setisMobile] = useState(false);
 
   const handleSearch = async (formData) => {
     const Searchname = formData?.get("name") || "";
@@ -28,9 +28,10 @@ const Home = () => {
     setLoading(false);
   };
 
-  const isMobile = useMediaQuery({ maxWidth: 768 });
-
   useEffect(() => {
+    if (window.innerWidth < 768) {
+      setisMobile(true);
+    }
     handleSearch();
   }, []);
 
