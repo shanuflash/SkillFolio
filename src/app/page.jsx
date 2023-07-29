@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import Loading from "./loading";
 import Select from "react-select";
 import skillData from "@/skillData";
+import { useMediaQuery } from "react-responsive";
 
 const Home = () => {
   const [data, setData] = useState([]);
@@ -26,6 +27,8 @@ const Home = () => {
     setData(userDetail);
     setLoading(false);
   };
+
+  const isMobile = useMediaQuery({ maxWidth: 768 });
 
   useEffect(() => {
     handleSearch();
@@ -58,8 +61,8 @@ const Home = () => {
             control: (baseStyles, state) => ({
               ...baseStyles,
               backgroundColor: "#4c3dbd",
-              width: "20vw",
-              height: "6vh",
+              width: isMobile ? "20vw" : "20vw",
+              height: isMobile ? "4vh" : "6vh",
               border: "none",
               borderRadius: "0",
             }),
@@ -82,6 +85,8 @@ const Home = () => {
             indicatorsContainer: (baseStyles, state) => ({
               ...baseStyles,
               backgroundColor: "#3903b8",
+              width: isMobile ? "4vw" : null,
+              height: isMobile ? "4vw" : null,
             }),
             indicatorSeparator: (baseStyles, state) => ({
               ...baseStyles,
