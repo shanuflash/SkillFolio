@@ -13,24 +13,14 @@ const Home = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState([]);
-  const handleFilter = async (e) => {
-    const response = await fetch(BASE_URL + "/api/users", {
-      body: JSON.stringify(filter),
-      cache: "no-store",
-      credentials: "include",
-      method: "POST",
-    });
-    const { userDetail } = await response.json();
-    setData(userDetail);
-    setLoading(false);
-  };
 
   const handleSearch = async (formData) => {
     const Searchname = formData?.get("name") || "";
     const response = await fetch(BASE_URL + "/api/users?name=" + Searchname, {
+      body: JSON.stringify(filter),
       cache: "no-store",
       credentials: "include",
-      method: "GET",
+      method: "POST",
     }).then((res) => res.json());
     const { userDetail } = await response;
     setData(userDetail);
@@ -43,7 +33,7 @@ const Home = () => {
 
   return (
     <div className={styles.main}>
-      <form className={style.search} action={handleFilter}>
+      <form className={style.search} action={handleSearch}>
         <input
           className={style.input}
           name="name"
@@ -53,18 +43,25 @@ const Home = () => {
         />
         <Select
           options={skillData}
-          defaultValue={data?.skills?.map((item) => ({
-            value: item,
-            label: item,
-          }))}
+          defaultValue={
+            data?.skills?.map((item) => ({
+              value: item,
+              label: item,
+            })) || null
+          }
           isMulti
           onChange={(e) => {
             setFilter(e.map((item) => item.value));
           }}
+          placeholder="Search skills..."
           styles={{
             control: (baseStyles, state) => ({
               ...baseStyles,
-              backgroundColor: "black",
+              backgroundColor: "#4c3dbd",
+              width: "20vw",
+              height: "6vh",
+              border: "none",
+              borderRadius: "0",
             }),
             option: (baseStyles, state) => ({
               ...baseStyles,
@@ -82,6 +79,18 @@ const Home = () => {
               ...baseStyles,
               backgroundColor: "#3903b8",
             }),
+            indicatorsContainer: (baseStyles, state) => ({
+              ...baseStyles,
+              backgroundColor: "#3903b8",
+            }),
+            indicatorSeparator: (baseStyles, state) => ({
+              ...baseStyles,
+              backgroundColor: "#3903b8",
+            }),
+            placeholder: (baseStyles, state) => ({
+              ...baseStyles,
+              color: "white",
+            }),
           }}
         />
         <button type="submit" className={style.searchbtn}>
@@ -95,7 +104,7 @@ const Home = () => {
           {data?.map((student) => {
             if (student.name !== "your name") {
               return (
-                <Link href={"profile/" + student.user} key={student.id}>
+                <Link href={"profile/" + student._id} key={student._id}>
                   <div className={styles.card}>
                     <img src={student.photo} alt="student Image" />
                     <div className={styles.content}>

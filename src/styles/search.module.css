@@ -7,7 +7,8 @@
 }
 
 .input {
-  width: 50vw;
+  background-color: var(--primary);
+  width: 30vw;
   height: 6vh;
   color: white;
   border: none;
