@@ -140,6 +140,11 @@ const UserDetailSchema = mongoose.Schema(
       maxlength: 10,
       message: "Phone number is required",
     },
+    email: {
+      type: String,
+      required: true,
+      message: "Email is required",
+    },
     dob: {
       type: String,
       required: true,
