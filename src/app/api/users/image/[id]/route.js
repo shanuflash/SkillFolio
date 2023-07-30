@@ -4,6 +4,7 @@ import dbConnection from "../../../utils/db";
 import { v2 as cloudinary } from "cloudinary";
 import fs from "fs";
 import { writeFile } from "fs/promises";
+import { join } from "path";
 
 dbConnection(process.env.NEXT_PUBLIC_MONGO_URL);
 cloudinary.config({
@@ -21,7 +22,7 @@ export async function POST(req, { params }) {
     const file = formData.get("file");
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
-    const path = process.cwd() + "/public/" + file.name;
+    const path = join(`/tmp/${file.name}`);
     if (file) {
       try {
         await writeFile(path, buffer);
