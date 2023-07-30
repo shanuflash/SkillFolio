@@ -21,7 +21,7 @@ export async function POST(req, { params }) {
     const file = formData.get("file");
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
-    const path = process.cwd() + "/public/" + file.name;
+    const path = "/tmp/" + file.name;
     if (file) {
       try {
         await writeFile(path, buffer);
