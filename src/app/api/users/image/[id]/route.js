@@ -2,10 +2,12 @@ import { NextResponse } from "next/server";
 import { UserDetails } from "../../../utils/schema";
 import dbConnection from "../../../utils/db";
 import { v2 as cloudinary } from "cloudinary";
-import fs from "fs";
+import fs, { writeFileSync } from "fs";
 import { writeFile } from "fs/promises";
+process.env.NODE_NO_WARNINGS = "stream/web";
 import { join } from "path";
 
+process.noDeprecation = true;
 dbConnection(process.env.NEXT_PUBLIC_MONGO_URL);
 cloudinary.config({
   cloud_name: process.env.NEXT_PUBLIC_CLOUD_NAME,
@@ -20,13 +22,14 @@ export async function POST(req, { params }) {
     const id = params.id;
     const formData = await req.formData();
     const file = formData.get("file");
-    const bytes = await file.arrayBuffer();
-    const buffer = Buffer.from(bytes);
     const path = join(`/tmp/${file.name}`);
-    console.log(file, path);
+    writeFile(path, file);
+    // const bytes = await file.arrayBuffer();
+    // const buffer = Buffer.from(bytes);
+    // console.log(file, path);
     if (file) {
       try {
-        await writeFile(path, buffer);
+        // writeFileSync(path);
         const { secure_url } = await cloudinary.uploader.upload(path, {
           public_id: id,
           folder: "profile",
