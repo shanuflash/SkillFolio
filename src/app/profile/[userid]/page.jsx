@@ -2,6 +2,17 @@ import styles from "@/styles/profile.module.css";
 
 import { BASE_URL } from "@/config";
 
+// export async function generateMetadata({ params, searchParams }, parent) {
+//   const id = params.id;
+
+//   // fetch data
+//   const product = await fetch(`https://.../${id}`).then((res) => res.json());
+
+//   return {
+//     title: product.title,
+//   };
+// }
+
 const page = async ({ params }) => {
   const id = params.userid;
   const response = await fetch(BASE_URL + "/api/users/" + id, {
@@ -18,7 +29,7 @@ const page = async ({ params }) => {
   return (
     <div className={styles.profile}>
       <div className={styles.disclaimer}>
-        Still Work in Progress. Go to your profile page to edit your profile.
+        Go to your profile page to edit your profile.
       </div>
       <div className={styles.head}>
         <div className={styles.photo}>
@@ -171,3 +182,4 @@ const page = async ({ params }) => {
 };
 
 export default page;
+// ({ params, searchParams });
