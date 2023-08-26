@@ -26,9 +26,11 @@
 
 .card > img {
   width: 200px;
-  height: 220;
+  height: 220px;
   border-radius: 1rem;
   padding: 0.5rem;
+  object-fit: contain;
+  object-position: top;
 }
 
 @media only screen and (max-width: 768px) {
