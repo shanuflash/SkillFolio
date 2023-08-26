@@ -39,6 +39,7 @@ const page = async ({ params }) => {
           <div className={styles.name}>
             {userDetail?.name}{" "}
             <span className={styles.profession}>{userDetail?.designation}</span>
+            <span className={styles.RegNo}>{userDetail?.RegNo}</span>
           </div>
           <div className={styles.description}>{userDetail?.description}</div>
           <div className={styles.contact}>
