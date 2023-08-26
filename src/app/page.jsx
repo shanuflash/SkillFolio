@@ -24,7 +24,7 @@ const Home = () => {
       method: "POST",
     }).then((res) => res.json());
     const { userDetail } = await response;
-    setData(userDetail);
+    setData(userDetail.sort((a, b) => a.name.localeCompare(b.name)));
     setLoading(false);
   };
 
