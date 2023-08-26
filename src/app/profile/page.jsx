@@ -195,13 +195,13 @@ const page = () => {
               }}
               onBlur={(e) => handleChange(e, "designation")}
             />
-            <span
-              className={styles.RegNo}
+            <div
+              className={styles.regNo}
               contentEditable={edit}
               dangerouslySetInnerHTML={{
-                __html: data?.RegNo || "your Regestration Number",
+                __html: data?.regNo || "your Regestration Number",
               }}
-              onBlur={(e) => handleChange(e, "RegNo")}
+              onBlur={(e) => handleChange(e, "regNo")}
             />
           </div>
           <div

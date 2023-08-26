@@ -83,6 +83,11 @@
   font-weight: 300;
 }
 
+.name > .regNo {
+  font-size: 1.50rem;
+  text-align: justify;
+  font-weight: 400;
+}
 .content > .description {
   font-size: 1.25rem;
   text-align: justify;

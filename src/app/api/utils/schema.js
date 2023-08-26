@@ -123,6 +123,11 @@ const UserDetailSchema = mongoose.Schema(
       required: true,
       message: "Designation is required",
     },
+    regNo:{
+      type: String,
+      required: true,
+      message: "Registration number is required",
+    },
     description: {
       type: String,
       required: true,
