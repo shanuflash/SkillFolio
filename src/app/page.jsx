@@ -123,7 +123,6 @@ const Home = () => {
                           ? null
                           : student?.regNo}
                       </div>
-                      0
                     </div>
                   </div>
                 </Link>
