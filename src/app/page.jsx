@@ -118,10 +118,12 @@ const Home = () => {
                     <div className={styles.content}>
                       <div className={styles.title}>{student?.name}</div>
                       <div className={styles.regNo}>
-                        {student.regNo === "your Regestration Number"
+                        {student.regNo === "your Regestration Number" ||
+                        student.regNo === "Enter your Regestration Number"
                           ? null
                           : student?.regNo}
                       </div>
+                      0
                     </div>
                   </div>
                 </Link>

@@ -42,7 +42,7 @@ export async function POST(req, { params }) {
     user: id,
     name: "your name",
     designation: "your designation",
-    regNo: "your Regestration Number",
+    regNo: "Enter your Regestration Number",
     description: "your description",
     address: "your address",
     phone: "0000000000",

@@ -199,7 +199,7 @@ const page = () => {
               className={styles.regNo}
               contentEditable={edit}
               dangerouslySetInnerHTML={{
-                __html: data?.regNo || "your Regestration Number",
+                __html: data?.regNo || "Enter your Regestration Number",
               }}
               onBlur={(e) => handleChange(e, "regNo")}
             />
