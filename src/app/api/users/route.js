@@ -16,6 +16,7 @@ export async function POST(req) {
     const userDetail = await UserDetails.find(query, {
       photo: 1,
       name: 1,
+      regNo: 1,
       _id: 1,
     });
     return NextResponse.json({ userDetail }, { status: 200 });

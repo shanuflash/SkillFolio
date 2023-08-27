@@ -17,7 +17,7 @@ const Home = () => {
 
   const handleSearch = async (formData) => {
     const Searchname = formData?.get("name") || "";
-    const response = await fetch(BASE_URL + "/api/users?name=" + Searchname, {
+    const response = await fetch(BASE_URL + `/api/users?name=${Searchname}`, {
       body: JSON.stringify(filter),
       cache: "no-store",
       credentials: "include",
@@ -117,6 +117,11 @@ const Home = () => {
                     <img src={student.photo} alt="student Image" />
                     <div className={styles.content}>
                       <div className={styles.title}>{student?.name}</div>
+                      <div className={styles.regNo}>
+                        {student.regNo === "your Regestration Number"
+                          ? null
+                          : student?.regNo}
+                      </div>
                     </div>
                   </div>
                 </Link>
