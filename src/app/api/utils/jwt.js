@@ -1,4 +1,5 @@
 import { SignJWT, jwtVerify } from "jose";
+import { cookies } from "next/headers";
 
 const jwtGenrator = async ({ payload }) => {
   console.log("payload", payload.toString());
@@ -12,10 +13,15 @@ const jwtGenrator = async ({ payload }) => {
 };
 
 const jwtVerifier = async (token) => {
-  return await jwtVerify(
-    token,
-    new TextEncoder().encode(process.env.NEXT_PUBLIC_JWT_SECRET)
-  );
+  try {
+    return await jwtVerify(
+      token,
+      new TextEncoder().encode(process.env.NEXT_PUBLIC_JWT_SECRET)
+    );
+  } catch (error) {
+    console.log(error);
+    cookies().delete("token");
+  }
 };
 
 export { jwtGenrator, jwtVerifier };
