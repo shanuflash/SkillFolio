@@ -37,6 +37,12 @@ const Home = () => {
 
   return (
     <div className={styles.main}>
+      <div className={styles.college}>
+        <div className={styles.collegeName}>SAVEETHA ENGINEERING COLLEGE</div>
+        <div className={styles.collegeDepartment}>
+          DEPARTMENT OF INFORMATION TECHNOLOGY 2020-2024
+        </div>
+      </div>
       <form className={style.search} action={handleSearch}>
         <input
           className={style.input}

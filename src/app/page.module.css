@@ -2,8 +2,28 @@
   display: flex !important;
   /* justify-content: center; */
   flex-wrap: wrap;
-  gap: 3rem;
+  gap: 3.8rem;
   padding: 2rem 3rem;
+}
+
+.main > .college {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.college > .collegeName {
+  font-size: 2.5rem;
+  letter-spacing: 0.2rem;
+  font-weight: 600;
+}
+
+.college > .collegeDepartment {
+  font-size: 1rem;
+  letter-spacing: 0.1rem;
 }
 
 .card {
@@ -40,6 +60,16 @@
     justify-content: center;
     flex-wrap: wrap;
     gap: 1.5rem;
+  }
+
+  .college > .collegeName {
+    font-size: 1.1rem;
+    letter-spacing: 0.1rem;
+  }
+
+  .college > .collegeDepartment {
+    font-size: 0.65rem;
+    letter-spacing: 0rem !important;
   }
 
   .card {
