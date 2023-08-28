@@ -62,6 +62,9 @@ const Login = () => {
             />
           </div>
         </div>
+        <div className={styles.reset}>
+          <a href="/reset">Password Reset?</a>
+        </div>
         <div className={styles["button-container"]}>
           <button className={styles.signup} type="submit">
             Login

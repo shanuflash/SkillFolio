@@ -29,7 +29,7 @@ const reset = () => {
       toast.error(data?.message, { autoClose: 3000 });
     } else {
       toast(data?.message, { autoClose: 1000 });
-      router.push("/profile");
+      router.push("/login");
       router.refresh();
     }
   };
