@@ -37,10 +37,7 @@ const section = ({
       case "certificates":
         setData((prev) => ({
           ...prev,
-          certificates: [
-            ...prev.certificates,
-            { name: "certificate name", description: "certificate url" },
-          ],
+          certificates: [...prev.certificates, { name: "certificate name" }],
         }));
         break;
       case "education":
@@ -84,16 +81,18 @@ const section = ({
             }}
             onBlur={(e) => handleChangeObjIndex(e, `${name}.name`, index)}
           />
-          <span
-            className={styles.description}
-            contentEditable={edit}
-            dangerouslySetInnerHTML={{
-              __html: item.description || `${name} description`,
-            }}
-            onBlur={(e) =>
-              handleChangeObjIndex(e, `${name}.description`, index)
-            }
-          />
+          {name.toLowerCase() !== "certificates" && (
+            <span
+              className={styles.description}
+              contentEditable={edit}
+              dangerouslySetInnerHTML={{
+                __html: item.description || `${name} description`,
+              }}
+              onBlur={(e) =>
+                handleChangeObjIndex(e, `${name}.description`, index)
+              }
+            />
+          )}
           {edit && (
             <button
               className={styles.delete}

@@ -43,7 +43,7 @@ const page = async ({ params }) => {
           </div>
           <div className={styles.description}>{userDetail?.description}</div>
           <div className={styles.contact}>
-            <div className={styles.item}>{userDetail?.address}</div>
+            <div className={styles.item}>Address: {userDetail?.address}</div>
             <div className={styles.item}>Phone: {userDetail?.phone}</div>
             <div className={styles.item}>Email: {userDetail?.email}</div>
             <div className={styles.item}>Date of Birth: {userDetail?.dob}</div>
@@ -160,7 +160,6 @@ const page = async ({ params }) => {
             {userDetail?.certificates?.map((item) => (
               <div className={styles.item}>
                 <div className={styles.name}>{item.name}</div>
-                <div className={styles.description}>{item.description}</div>
               </div>
             ))}
           </div>
