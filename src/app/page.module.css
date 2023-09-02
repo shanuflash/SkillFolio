@@ -66,8 +66,8 @@
   }
 
   .card {
-    width: 35vw;
-    height: 20vh;
+    width: 40vw;
+    height: 25vh;
     font-size: 0.8rem;
     display: flex;
     gap: 0.3rem;
