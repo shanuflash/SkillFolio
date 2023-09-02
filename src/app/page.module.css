@@ -45,7 +45,6 @@
 .card > img {
   width: 200px;
   height: 220px;
-  border-radius: 1rem;
   padding: 0.5rem;
   object-fit: contain;
   object-position: top;
@@ -80,7 +79,6 @@
   .card > img {
     width: 80%;
     height: 80%;
-    border-radius: 0.5rem;
     padding: 0 !important;
   }
 

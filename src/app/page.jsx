@@ -1,6 +1,5 @@
 "use client";
 import styles from "./page.module.css";
-
 import Link from "next/link";
 import { BASE_URL } from "@/config";
 import style from "@/styles/search.module.css";
