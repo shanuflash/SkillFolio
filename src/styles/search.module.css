@@ -6,6 +6,11 @@
   justify-content: center;
 }
 
+.search > input:focus,
+.search > Select:focus {
+  outline: none;
+}
+
 .input {
   background-color: var(--primary);
   width: 30vw;

@@ -21,6 +21,10 @@
   text-decoration: none;
 }
 
+.logo > .by {
+  font-size: 1rem;
+}
+
 .user {
   display: flex;
   align-items: center;
@@ -65,5 +69,12 @@
 
   .profile {
     font-size: 0.6rem;
+  }
+  .logo > .by {
+    display: none;
+  }
+
+  .logo > img {
+    display: none;
   }
 }

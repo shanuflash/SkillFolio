@@ -60,14 +60,9 @@
     gap: 1.5rem;
   }
 
-  .college > .collegeName {
-    font-size: 1.1rem;
-    letter-spacing: 0.1rem;
-  }
-
-  .college > .collegeDepartment {
-    font-size: 0.65rem;
-    letter-spacing: 0rem !important;
+  .college > .title{
+    font-size: 0.4rem;
+    padding: 1px;
   }
 
   .card {

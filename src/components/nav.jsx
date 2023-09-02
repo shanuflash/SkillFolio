@@ -15,18 +15,12 @@ const nav = async () => {
     <div className={styles.nav}>
       <Link href="/" className={styles.logo}>
         <span>SkillFolio</span>
-        <span style={{ fontSize: "1rem" }}>by</span>
+        <span className={styles.by}>by</span>
         <img
           style={{ height: "auto", width: "175px" }}
           src="/logo.png"
           alt="Picture of the author"
         />
-        {/* <img
-          style={{ height: "auto", width: "175px" }}
-          src="/logo.png"
-          alt="Picture of the author"
-        />
-        <span>{"✦"} SkillFolio</span> */}
       </Link>
       <div className={styles.user}>
         <form action={handleLogout}>
