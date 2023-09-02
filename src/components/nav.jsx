@@ -1,7 +1,6 @@
 import styles from "@/styles/nav.module.css";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import Image from "next/image";
 import Link from "next/link";
 
 const nav = async () => {
@@ -15,12 +14,19 @@ const nav = async () => {
   return (
     <div className={styles.nav}>
       <Link href="/" className={styles.logo}>
-        <Image
-          src="/logo.webp"
-          width={300}
-          height={50}
+        <span>SkillFolio</span>
+        <span style={{ fontSize: "1rem" }}>by</span>
+        <img
+          style={{ height: "auto", width: "175px" }}
+          src="/logo.png"
           alt="Picture of the author"
         />
+        {/* <img
+          style={{ height: "auto", width: "175px" }}
+          src="/logo.png"
+          alt="Picture of the author"
+        />
+        <span>{"✦"} SkillFolio</span> */}
       </Link>
       <div className={styles.user}>
         <form action={handleLogout}>

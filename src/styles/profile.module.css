@@ -84,7 +84,7 @@
 }
 
 .name > .regNo {
-  font-size: 1.50rem;
+  font-size: 1.5rem;
   text-align: justify;
   font-weight: 400;
 }
@@ -155,7 +155,15 @@
   font-weight: 500;
 }
 
+.item > .name::before {
+  position: absolute;
+  content: "✦";
+  top: 0;
+  left: -20px;
+}
+
 .section > .item {
+  position: relative;
   display: flex;
   flex-direction: column;
   margin-left: 1rem;

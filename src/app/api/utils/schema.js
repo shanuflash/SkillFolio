@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import { isEmail } from "validator";
 import bcrypt from "bcryptjs";
 
 const SocialSchema = mongoose.Schema({
@@ -123,7 +122,7 @@ const UserDetailSchema = mongoose.Schema(
       required: true,
       message: "Designation is required",
     },
-    regNo:{
+    regNo: {
       type: String,
       required: true,
       message: "Registration number is required",
@@ -185,7 +184,7 @@ const User = new mongoose.Schema(
       unique: true,
       lowercase: true,
       validator: {
-        validate: (value) => isEmail(value),
+        validate: (value) => /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(value),
         message: "Email is not valid",
       },
     },

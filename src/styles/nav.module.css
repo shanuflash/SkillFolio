@@ -3,10 +3,17 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background-color: black;
   padding: 1rem 2rem;
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
 .logo {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
   letter-spacing: 0.35rem;
   color: #ffffff;
   font-size: 1.5rem;

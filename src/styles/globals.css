@@ -24,8 +24,8 @@
 
 body {
   margin: 0 !important;
-  overflow-x: hidden;
   overflow-y: overlay;
+  overflow-x: hidden;
   scroll-behavior: smooth;
 }
 

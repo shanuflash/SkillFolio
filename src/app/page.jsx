@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import Loading from "./loading";
 import Select from "react-select";
 import skillData from "@/skillData";
+import Image from "next/image";
 
 const Home = () => {
   const [data, setData] = useState([]);
@@ -38,9 +39,8 @@ const Home = () => {
   return (
     <div className={styles.main}>
       <div className={styles.college}>
-        <div className={styles.collegeName}>SAVEETHA ENGINEERING COLLEGE</div>
-        <div className={styles.collegeDepartment}>
-          DEPARTMENT OF INFORMATION TECHNOLOGY 2020-2024
+        <div className={styles.title}>
+          DEPARTMENT OF INFORMATION TECHNOLOGY ✦ 2020-2024
         </div>
       </div>
       <form className={style.search} action={handleSearch}>
@@ -114,7 +114,7 @@ const Home = () => {
       {loading ? (
         <Loading />
       ) : (
-        <>
+        <div className={styles.profiles}>
           {data?.map((student) => {
             if (student.name !== "your name") {
               return (
@@ -135,7 +135,7 @@ const Home = () => {
               );
             }
           })}
-        </>
+        </div>
       )}
     </div>
   );
