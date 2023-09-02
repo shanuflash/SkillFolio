@@ -32,7 +32,7 @@
 }
 
 .profile {
-  background-color: #5e2bd4;
+  background-color: var(--ascent);
   color: #fff;
   border: none;
   border-radius: 0.5rem;

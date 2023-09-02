@@ -3,9 +3,13 @@
 
 :root {
   --bg: #040109;
-  --ascent: #5e2bd4;
+  --ascent: #3903b8;
   --primary: #4c3dbd;
   --secondary: #141032;
+
+  /* toastify override */
+  --toastify-color-progress-dark: var(--ascent) !important;
+  --toastify-color-success: var(--toastify-color-progress-dark) !important;
 
   font-family: "Montserrat", sans-serif;
   line-height: 1.5;
@@ -61,7 +65,7 @@ a {
 }
 
 button {
-  background-color: #3903b8;
+  background-color: var(--ascent);
   color: #fff;
   border-radius: 0.5rem;
   padding: 0.5rem 1rem;
@@ -85,4 +89,8 @@ input {
 ::placeholder {
   color: white;
   opacity: 1;
+}
+
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px rgb(0, 0, 0) inset;
 }

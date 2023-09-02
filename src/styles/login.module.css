@@ -44,11 +44,11 @@
   border-radius: 0.7rem;
   padding: 1rem;
   background-color: black;
+  outline: 1px solid var(--secondary);
 }
 
 .input-container input:focus {
   outline: 1px solid var(--ascent);
-  /* outline: none; */
 }
 
 .button-container {

@@ -31,13 +31,20 @@ const page = () => {
     const formData = new FormData();
     formData.append("file", photo);
     setPhoto(null);
-    const response = await fetch(BASE_URL + `/api/users/image/${id}`, {
+    const response = fetch(BASE_URL + `/api/users/image/${id}`, {
       cache: "no-store",
       credentials: "include",
       method: "POST",
       body: formData,
     });
-    const { message, secure_url } = (await response.json()) || {};
+    toast.promise(response, {
+      pending: "Uploading image...",
+      success: "Image Uploaded!",
+      error: "Upload Failed!",
+    });
+    const { secure_url } =
+      (await response.then((response) => response.json())) || {};
+
     if (secure_url) {
       setData((prev) => ({
         ...prev,
