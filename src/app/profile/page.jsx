@@ -317,11 +317,7 @@ const page = () => {
               />
             </a>
           </div>
-          <Section
-            name="education"
-            data={data?.education}
-            {...{ setData, handleChangeObjIndex, handleDelete, edit }}
-          />
+
           <div className={`${styles.section} ${styles.skills}`}>
             <div className={styles.title}>Skills</div>
             {edit && (
@@ -377,6 +373,16 @@ const page = () => {
               ))}
             </div>
           </div>
+          <Section
+            name="education"
+            data={data?.education}
+            {...{ setData, handleChangeObjIndex, handleDelete, edit }}
+          />
+          <Section
+            name="languages"
+            data={data?.languages}
+            {...{ setData, handleChangeObjIndex, handleDelete, edit }}
+          />
         </div>
         <div className={styles.right}>
           <Section
@@ -392,11 +398,6 @@ const page = () => {
           <Section
             name="certificates"
             data={data?.certificates}
-            {...{ setData, handleChangeObjIndex, handleDelete, edit }}
-          />
-          <Section
-            name="languages"
-            data={data?.languages}
             {...{ setData, handleChangeObjIndex, handleDelete, edit }}
           />
         </div>
