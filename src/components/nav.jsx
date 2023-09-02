@@ -15,7 +15,7 @@ const nav = async () => {
     <div className={styles.nav}>
       <Link href="/" className={styles.logo}>
         <span>SkillFolio</span>
-        <span className={styles.by}>by</span>
+        <span className={styles.by}>for</span>
         <img
           style={{ height: "auto", width: "175px" }}
           src="/logo.png"
