@@ -5,7 +5,7 @@ import dbConnection from "../../utils/db";
 dbConnection(process.env.NEXT_PUBLIC_MONGO_URL);
 
 // get user
-export async function GET({ params }) {
+export async function GET(req, { params }) {
   const id = params.id;
   try {
     const userDetail = (await UserDetails.findOne({ _id: id })) || [];
